@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using projet_elea_rebecca_gr3.Models;
+using GestionCinema.Models;
 
-namespace projet_elea_rebecca_gr3.Controllers;
+namespace GestionCinema.Controllers;
 
 public class HomeController : Controller
 {

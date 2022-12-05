@@ -1,4 +1,4 @@
-namespace projet_elea_rebecca_gr3.Models;
+namespace GestionCinema.Models;
 
 public class ErrorViewModel
 {

@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using GestionCinema.Models;
 
-namespace GestionCinema;
+namespace GestionCinema.Data;
 
 public class CinemaContext : DbContext
 {
@@ -9,7 +10,6 @@ public class CinemaContext : DbContext
     public DbSet<Film> Films { get; set; } = null!;
     public DbSet<Seance> Seances { get; set; } = null!;
     public DbSet<Salle> Salles { get; set; } = null!;
-
     public string DbPath { get; private set; }
 
     public CinemaContext()

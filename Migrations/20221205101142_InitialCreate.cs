@@ -38,6 +38,7 @@ namespace projetelearebeccagr3.Migrations
                     Nom = table.Column<string>(type: "TEXT", nullable: false),
                     Realisateur = table.Column<string>(type: "TEXT", nullable: false),
                     Resume = table.Column<string>(type: "TEXT", nullable: false),
+                    Genre = table.Column<int>(type: "INTEGER", nullable: true),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Duree = table.Column<double>(type: "REAL", nullable: false),
                     Statut = table.Column<int>(type: "INTEGER", nullable: false)
