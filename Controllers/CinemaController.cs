@@ -5,20 +5,20 @@ using GestionCinema.Data;
 
 namespace GestionCinema.Controllers;
 
-public class FilmConctroller : Controller
+public class CinemaController : Controller
 {
     private readonly CinemaContext _context;
 
 
-    public FilmConctroller(CinemaContext context)
+    public CinemaController(CinemaContext context)
     {
         _context = context;
     }
 
     public async Task<IActionResult> Index()
     {
-        var films = await _context.Films.OrderBy(f => f.Nom).ToListAsync();
-        return View(films);
+        var cinemas = await _context.Cinemas.OrderBy(f => f.Nom).ToListAsync();
+        return View(cinemas);
     }
 
     public async Task<IActionResult> Details(int? id)
@@ -27,13 +27,13 @@ public class FilmConctroller : Controller
         {
             return NotFound();
         }
-        var film = await _context.Films.Where(f => f.Id == id)
+        var cinema = await _context.Films.Where(c => c.Id == id)
                .SingleOrDefaultAsync();
-        if (film == null)
+        if (cinema == null)
         {
             return NotFound();
         }
 
-        return View(film);
+        return View(cinema);
     }
 }
