@@ -5,12 +5,12 @@ using GestionCinema.Data;
 
 namespace GestionCinema.Controllers;
 
-public class CinemaConctroller : Controller
+public class CinemaController : Controller
 {
     private readonly CinemaContext _context;
 
 
-    public CinemaConctroller(CinemaContext context)
+    public CinemaController(CinemaContext context)
     {
         _context = context;
     }
