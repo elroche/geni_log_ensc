@@ -60,7 +60,7 @@ public class SeedData
                 Cinema alesia = new Cinema
                 {
                     Nom = "Alésia",
-                    Adresse = "73 avenye du Général Leclerc",
+                    Adresse = "73 avenue du Général Leclerc",
                     CodePostal = 75014,
                     Ville = "Paris",
                     Responsable = "Remy Robert",

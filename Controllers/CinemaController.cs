@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GestionCinema.Data;
+using GestionCinema.Models;
 
 namespace GestionCinema.Controllers;
 
@@ -36,4 +37,103 @@ public class CinemaController : Controller
 
         return View(cinema);
     }
+
+    //Afficher la liste de tous les cinémas d’une ville
+    // GET: Cinema/FindCinemas/ville
+    public async Task<IActionResult> FindCinemas(String ville)
+    {
+        if (ville == null)
+        {
+            return NotFound();
+        }
+        var cinemas = await _context.Cinemas.Where(c => c.Ville == ville)
+               .ToListAsync();
+        if (cinemas == null)
+        {
+            return NotFound();
+        }
+
+        return View(cinemas);
+    }
+
+    
+    // GET: Cinema/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Cinema/Create
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Cinema cinema)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Add(cinema);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(cinema);
+    }
+
+    // GET: Cinema/Edit/id
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var cinema = await _context.Cinemas.FindAsync(id);
+        if (cinema == null)
+        {
+            return NotFound();
+        }
+        return View(cinema);
+    }
+
+    // POST: Cinema/Edit/id
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Cinema cinema)
+    {
+        if (id != cinema.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(cinema);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CinemaExist(cinema.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(cinema);
+    }
+
+
+    private bool CinemaExist(int id)
+    {
+        return _context.Cinemas.Any(c => c.Id == id);
+    }
+
 }

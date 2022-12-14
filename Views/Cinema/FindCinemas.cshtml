@@ -1,15 +1,17 @@
 @model IEnumerable<GestionCinema.Models.Cinema>
 
 @{
-    ViewData["Title"] = "Les cinémas";
+    ViewData["Title"] = "Recherche";
 }
 
 <div class="context">
-    <h2>Cinémas</h1>
-
-        <p>
-            <a asp-action="Create">Ajouter un nouveau cinéma</a>
-        </p>
+    <h2>Rechercher les cinémas par ville</h1>
+        <form asp-action="FindCinemas">
+            
+            <div class="form-group">
+                <input type="submit" value="Rechercher" class="btn btn-primary" />
+            </div>
+        </form>
         <div class="row row justify-content-start mt-2">
             @foreach (var item in Model)
             {

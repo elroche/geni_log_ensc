@@ -27,7 +27,7 @@ public class FilmController : Controller
         {
             return NotFound();
         }
-        var film = await _context.Films.Where(f => f.Id == id)
+        var film = await _context.Films.Where(f => f.Id == id && f.Statut == 1)
                .SingleOrDefaultAsync();
         if (film == null)
         {
@@ -119,7 +119,7 @@ public class FilmController : Controller
         }
 
         var film = await _context.Films
-            .FirstOrDefaultAsync(m => m.Id == id);
+            .FirstOrDefaultAsync(f => f.Id == id);
         if (film == null)
         {
             return NotFound();
@@ -134,7 +134,9 @@ public class FilmController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var film = await _context.Films.FindAsync(id);
-        _context.Films.Remove(film);
+        //Archive du film
+        film.Statut = 0;
+        _context.Films.Update(film);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
@@ -142,6 +144,6 @@ public class FilmController : Controller
 
     private bool FilmExist(int id)
     {
-        return _context.Films.Any(e => e.Id == id);
+        return _context.Films.Any(f => f.Id == id);
     }
 }
