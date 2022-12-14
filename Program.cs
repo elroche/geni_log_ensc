@@ -6,10 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CinemaContext>();
-builder.Services.AddDbContext<SeanceContext>();
-builder.Services.AddDbContext<SalleContext>();
-builder.Services.AddDbContext<FilmContext>();
-
 
 var app = builder.Build();
 

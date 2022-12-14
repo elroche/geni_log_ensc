@@ -2,23 +2,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GestionCinema.Data;
+using GestionCinema.Models;
 
 namespace GestionCinema.Controllers;
 
-public class FilmConctroller : Controller
+public class FilmController : Controller
 {
     private readonly CinemaContext _context;
 
 
-    public FilmConctroller(CinemaContext context)
+    public FilmController(CinemaContext context)
     {
         _context = context;
     }
 
     public async Task<IActionResult> Index()
     {
-        var films = await _context.Films.OrderBy(f => f.Nom).ToListAsync();
-        return View(films);
+        return View(await _context.Films.ToListAsync());
     }
 
     public async Task<IActionResult> Details(int? id)
@@ -35,5 +35,113 @@ public class FilmConctroller : Controller
         }
 
         return View(film);
+    }
+
+    // GET: Film/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Film/Create
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Film film)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Add(film);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(film);
+    }
+
+    // GET: Film/Edit/id
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var film = await _context.Films.FindAsync(id);
+        if (film == null)
+        {
+            return NotFound();
+        }
+        return View(film);
+    }
+
+    // POST: Film/Edit/id
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Film film)
+    {
+        if (id != film.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(film);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FilmExist(film.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(film);
+    }
+
+    // GET: Film/Delete/id
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var film = await _context.Films
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (film == null)
+        {
+            return NotFound();
+        }
+
+        return View(film);
+    }
+
+    // POST: Film/Delete/id
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var film = await _context.Films.FindAsync(id);
+        _context.Films.Remove(film);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+
+    private bool FilmExist(int id)
+    {
+        return _context.Films.Any(e => e.Id == id);
     }
 }

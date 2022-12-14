@@ -32,7 +32,13 @@
                                     cinémas</span></a>
                         </li>
                         <li>
-                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <a asp-area="" asp-controller="Film" asp-action="Index" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Les
+                                    films</span></a>
+                        </li>
+                        <!--<li>
+                            <a asp-area="" asp-controller="Film" asp-action="Create" href="#submenu1"
+                                data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Les
                                     films</span> </a>
                             <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
@@ -46,7 +52,7 @@
                                         2 </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li>
                             <a href="#" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">A propos</span>
@@ -62,15 +68,16 @@
                     <main role="main" class="pb-3">
                         @RenderBody()
                     </main>
+                    <footer class="border-top footer text-muted">
+
+                        &copy; 2022 - Gestion cinéma - <a asp-area="" asp-controller="Home"
+                            asp-action="Index">Privacy</a>
+                    </footer>
+
                 </div>
             </div>
         </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2022 - Gestion cinéma - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
     </div>
 
     <!--
