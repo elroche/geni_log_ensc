@@ -1,0 +1,48 @@
+@model IEnumerable<GestionCinema.Models.Salle>
+
+@{
+    ViewData["Title"] = "Les Salles";
+}
+<div class="text-center">
+
+    <h1>Salles</h1>
+
+    <p>
+        <a asp-action="Create">Ajouter une nouvelle salle</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cinema)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroSalle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NbPlace)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cinema.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroSalle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NbPlace)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

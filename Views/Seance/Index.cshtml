@@ -1,0 +1,60 @@
+@model IEnumerable<GestionCinema.Models.Seance>
+
+@{
+    ViewData["Title"] = "Les Séances";
+}
+<div class="text-center">
+
+    <h1>Séances</h1>
+
+    <p>
+        <a asp-action="Create">Ajouter une nouvelle séance</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Film)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salle.Cinema)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NbPlaceAchete)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Film.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salle.Cinema.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salle.NumeroSalle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NbPlaceAchete)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

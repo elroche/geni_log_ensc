@@ -5,19 +5,19 @@ using GestionCinema.Data;
 
 namespace GestionCinema.Controllers;
 
-public class SalleConctroller : Controller
+public class SalleController : Controller
 {
     private readonly CinemaContext _context;
 
 
-    public SalleConctroller(CinemaContext context)
+    public SalleController(CinemaContext context)
     {
         _context = context;
     }
 
     public async Task<IActionResult> Index()
     {
-        var salles = await _context.Salles.OrderBy(s => s.Id).ToListAsync();
+        var salles = await _context.Salles.Include(s => s.Cinema).OrderBy(s => s.Id).ToListAsync();
         return View(salles);
     }
 
