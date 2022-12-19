@@ -27,7 +27,7 @@ public class SalleController : Controller
         {
             return NotFound();
         }
-        var salle = await _context.Salles.Where(s => s.Id == id)
+        var salle = await _context.Salles.Include(s => s.Cinema).Where(s => s.Id == id)
                .SingleOrDefaultAsync();
         if (salle == null)
         {
