@@ -20,13 +20,7 @@
                     @Html.DisplayNameFor(model => model.Salle.Cinema)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Salle)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NbPlaceAchete)
                 </th>
             </tr>
         </thead>
@@ -41,13 +35,7 @@
                         @Html.DisplayFor(modelItem => item.Salle.Cinema.Nom)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Salle.NumeroSalle)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NbPlaceAchete)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |

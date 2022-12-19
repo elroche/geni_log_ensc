@@ -27,7 +27,7 @@ public class SeanceController : Controller
         {
             return NotFound();
         }
-        var seance = await _context.Seances.Where(s => s.Id == id)
+        var seance = await _context.Seances.Include(s => s.Film).Include(s => s.Salle).Include(s => s.Salle.Cinema).Where(s => s.Id == id)
                .SingleOrDefaultAsync();
         if (seance == null)
         {
