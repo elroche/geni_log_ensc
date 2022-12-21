@@ -5,28 +5,36 @@
 }
 
 <div class="context">
-    <h2>Rechercher les cinémas par ville</h1>
+    <h2 class="py-2">Recherche de cinémas </h1>
+        <hr />
         <form asp-action="FindCinemas">
-            
-            <div class="form-group">
-                <input type="submit" value="Rechercher" class="btn btn-primary" />
+            <div class="form-group text-center">
+                <p class="px-2">Je souhaite voir les cinémas de : </p>
+                <select>
+                    @foreach (var ville in (IEnumerable<Cinema>)ViewData["villes"])
+                    {
+                        <option value="ville">@ville.Ville</option>
+                    }
+                </select>
+                <div class="form-group text-center m-4">
+                    <input type="submit" value="Rechercher" class="btn btn-primary" />
+                </div>
             </div>
         </form>
         <div class="row row justify-content-start mt-2">
-            @foreach (var item in Model)
-            {
+            @*foreach (var item in Model)
+                {
                 <div class="col-4 p-2">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="../wwwroot/img/cinema.jpg" alt="Cinema image">
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom)</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => item.Adresse), @Html.DisplayFor(modelItem =>
-                            item.CodePostal) @Html.DisplayFor(modelItem => item.Ville).</p>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
-                        </div>
-                    </div>
+                <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="../wwwroot/img/cinema.jpg" alt="Cinema image">
+                <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Adresse), @Html.DisplayFor(modelItem =>
+                item.CodePostal) @Html.DisplayFor(modelItem => item.Ville).</p>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
                 </div>
-            }
+                </div>
+                </div>
+                }*@
         </div>
-
 </div>

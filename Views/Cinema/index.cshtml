@@ -10,6 +10,9 @@
         <p>
             <a asp-action="Create">Ajouter un nouveau cinéma</a>
         </p>
+        <p>
+            <a asp-controller="Cinema" asp-action="FindCinemas">Trouver un cinéma</a>
+        </p>
         <div class="row row justify-content-start mt-2">
             @foreach (var item in Model)
             {

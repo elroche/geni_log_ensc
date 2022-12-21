@@ -38,10 +38,24 @@ public class CinemaController : Controller
         return View(cinema);
     }
 
+    public IActionResult FindCinemas()
+    {
+        var ville = _context.Cinemas.GroupBy(c => c.Ville).Select(c => c.First()).ToList();
+        ViewData["villes"] = ville;
+        ViewData["search"] = 1;
+        return View();
+    }
+
     //Afficher la liste de tous les cinémas d’une ville
-    // GET: Cinema/FindCinemas/ville
+    // POST: Cinema/FindCinemas/
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> FindCinemas(String ville)
     {
+        ViewData["result"] = 1;
+
         if (ville == null)
         {
             return NotFound();
@@ -52,11 +66,10 @@ public class CinemaController : Controller
         {
             return NotFound();
         }
-
         return View(cinemas);
     }
 
-    
+
     // GET: Cinema/Create
     public IActionResult Create()
     {
