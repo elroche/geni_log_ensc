@@ -37,3 +37,11 @@ html {
     margin: auto;
     background-color: rgb(237, 234, 234);
 }
+
+.text-truncate-2 {
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}

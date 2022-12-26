@@ -19,6 +19,8 @@ public class Film
     [Display(Name = "Resumé")]
     public string? Resume { get; set; }
     public Genre? Genre { get; set; }
+
+    [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
     public DateTime Date { get; set; }
 
     [Display(Name = "Durée")]
