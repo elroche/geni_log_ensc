@@ -4,50 +4,54 @@
     ViewData["Title"] = "Detail du cinéma";
 }
 
-<h1>Details du cinéma @Html.DisplayFor(model => model.Nom)</h1>
+<h2 class="mb-5">| Details du cinéma @Html.DisplayFor(model => model.Nom)</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Adresse)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Adresse)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CodePostal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodePostal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ville)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ville)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PrixPlace)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PrixPlace)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Responsable)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Responsable)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Modifier</a> |
-    <a asp-action="Index">Retour a la liste</a>
-</div>
+    <fieldset class="fieldset-style p-3">
+        <dl class="row justify-content-around px-4">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Nom)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Nom)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Adresse)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Adresse)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.CodePostal)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.CodePostal)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Ville)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Ville)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.PrixPlace)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.PrixPlace) €
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Responsable)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Responsable)
+            </dd>
+        </dl>
+    </fieldset>
+    <div class="text-center mt-3">
+        <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-fill"></i>
+            Modifier</a>
+    </div>
+    <div class="mt-5">
+        <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la
+            la page précédente</a>
+
+    </div>
