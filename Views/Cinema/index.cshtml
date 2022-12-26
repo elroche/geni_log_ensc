@@ -3,19 +3,16 @@
 @{
     ViewData["Title"] = "Les cinémas";
 }
-
-<div class="context">
-    <h2>Cinémas</h1>
-
-        <p>
-            <a asp-action="Create">Ajouter un nouveau cinéma</a>
-        </p>
-        <div class="row row justify-content-start mt-2">
+<h2 class="mb-5">| Les différents cinémas</h1>
+<a class="btn btn-dark" asp-controller="Cinema" asp-action="Create"><i class="bi bi-plus-circle"></i> Ajouter un cinéma</a>
+<a class="btn btn-dark" asp-controller="Cinema" asp-action="RechercheCinemas"><i class="bi bi-search"></i> Chercher un cinéma</a>
+<div class="container pt-4">
+    <div class="row justify-content-center">
             @foreach (var item in Model)
             {
-                <div class="col-4 p-2">
+                <div class="col-sm p-3">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="../wwwroot/img/cinema.jpg" alt="Cinema image">
+                        <img class="card-img-top" src="/img/cinema.jpg" alt="Cinema image">
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom)</h5>
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Adresse), @Html.DisplayFor(modelItem =>
@@ -25,6 +22,6 @@
                     </div>
                 </div>
             }
-        </div>
-
+    </div>
 </div>
+    

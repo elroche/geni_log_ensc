@@ -38,25 +38,33 @@ public class CinemaController : Controller
         return View(cinema);
     }
 
+    public IActionResult RechercheCinemas()
+    {
+        var ville = _context.Cinemas.GroupBy(c => c.Ville).Select(c => c.First()).ToList();
+        ViewData["villes"] = ville;
+
+        return View();
+    }
+
     //Afficher la liste de tous les cinémas d’une ville
-    // GET: Cinema/FindCinemas/ville
-    public async Task<IActionResult> FindCinemas(String ville)
+    public IActionResult ResultatRecherche(String ville)
     {
         if (ville == null)
         {
             return NotFound();
         }
-        var cinemas = await _context.Cinemas.Where(c => c.Ville == ville)
-               .ToListAsync();
+        var cinemas = from c in _context.Cinemas
+                      where c.Ville == ville
+                      select c;
+
         if (cinemas == null)
         {
             return NotFound();
         }
-
-        return View(cinemas);
+        return View(cinemas.ToList());
     }
 
-    
+
     // GET: Cinema/Create
     public IActionResult Create()
     {
@@ -68,7 +76,7 @@ public class CinemaController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Cinema cinema)
+    public async Task<IActionResult> Create([Bind("Id,Nom,Adresse,CodePostal,Ville,Responsable,PrixPlace")] Cinema cinema)
     {
         if (ModelState.IsValid)
         {
@@ -100,7 +108,7 @@ public class CinemaController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Cinema cinema)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Adresse,CodePostal,Ville,Responsable,PrixPlace")] Cinema cinema)
     {
         if (id != cinema.Id)
         {

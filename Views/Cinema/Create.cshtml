@@ -3,55 +3,76 @@
 @{
     ViewData["Title"] = "Ajouter un cinéma";
 }
-<div class="text-center">
-    <h1>Ajouter un cinéma</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
+<h2 class="mb-5">| Ajouter un cinéma</h1>
+    <form asp-action="Create">
+        <fieldset class="fieldset-style p-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row px-4 py-2">
+                <div class="col-sm-4">
                     <label asp-for="Nom" class="control-label"></label>
+                </div>
+                <div class="col-sm-6">
                     <input asp-for="Nom" class="form-control" />
                     <span asp-validation-for="Nom" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group row px-4 py-2">
+                <div class="col-sm-4">
                     <label asp-for="Adresse" class="control-label"></label>
+                </div>
+                <div class="col-sm-6">
                     <input asp-for="Adresse" class="form-control" />
                     <span asp-validation-for="Adresse" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group row px-4 py-2">
+                <div class="col-sm-4">
                     <label asp-for="CodePostal" class="control-label"></label>
+                </div>
+                <div class="col-sm-6">
                     <input type="number" asp-for="CodePostal" class="form-control" />
                     <span asp-validation-for="CodePostal" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group row px-4 py-2">
+                <div class="col-sm-4">
                     <label asp-for="Ville" class="control-label"></label>
+                </div>
+                <div class="col-sm-6">
                     <input asp-for="Ville" class="form-control" />
                     <span asp-validation-for="Ville" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group row px-4 py-2">
+                <div class="col-sm-4">
                     <label asp-for="Responsable" class="control-label"></label>
+                </div>
+                <div class="col-sm-6">
                     <input asp-for="Responsable" class="form-control" />
                     <span asp-validation-for="Responsable" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group row px-4 py-2">
+                <div class="col-sm-4">
                     <label asp-for="PrixPlace" class="control-label"></label>
-                    <input type="number" asp-for="PrixPlace" class="form-control" />
+                </div>
+                <div class="col-sm-6">
+                    <input type="number" step=".01" min=0 asp-for="PrixPlace" class="form-control" />
                     <span asp-validation-for="PrixPlace" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Ajouter" class="btn btn-primary" />
-                </div>
-            </form>
+            </div>
+        </fieldset>
+        <div class="form-group text-center mt-4">
+            <input type="submit" value="Ajouter" class="btn btn-primary" />
         </div>
+    </form>
+    <div class="mt-4">
+        <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la
+            page précédente</a>
+    </div>
     </div>
 
-    <div>
-        <a asp-action="Index">Retour à la liste</a>
-    </div>
-</div>
 
-
-@section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

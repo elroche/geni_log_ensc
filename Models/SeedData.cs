@@ -78,7 +78,7 @@ public class SeedData
                 Cinema elysee = new Cinema
                 {
                     Nom = "Champs-Elysées",
-                    Adresse = "32 Avenue des Champs-ELysées",
+                    Adresse = "32 Avenue des Champs-Elysées",
                     CodePostal = 75008,
                     Ville = "Paris",
                     Responsable = "Thibaut Fontaine",

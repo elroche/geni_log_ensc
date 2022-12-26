@@ -55,7 +55,6 @@ public class CinemaApiController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCinema(int id)
     {
-        //TODO : Vérifier supression en cascade?
         var cinema = await _context.Cinemas.FindAsync(id);
         if (cinema == null)
             return NotFound();
