@@ -1,11 +1,15 @@
-using GestionCinema.Models;
+using System.Text.Json.Serialization;
 using GestionCinema.Data;
+using GestionCinema.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CinemaContext>();
+// Ignore circular references when serializing objects into JSON
+builder.Services.AddControllersWithViews().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

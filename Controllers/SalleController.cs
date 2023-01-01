@@ -22,10 +22,26 @@ public class SalleController : Controller
         return View(salles);
     }
 
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var salle = await _context.Salles.Include(s => s.Cinema).Where(s => s.Id == id)
+               .SingleOrDefaultAsync();
+        if (salle == null)
+        {
+            return NotFound();
+        }
+
+        return View(salle);
+    }
+
     // GET: Salle/Create
     public IActionResult Create()
     {
-        var cinemas =  _context.Cinemas.OrderBy(c => c.Nom).ToList();
+        var cinemas = _context.Cinemas.OrderBy(c => c.Nom).ToList();
         ViewData["cinemas"] = cinemas;
         return View();
     }
@@ -43,21 +59,6 @@ public class SalleController : Controller
         return View(salle);
     }
 
-    public async Task<IActionResult> Details(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-        var salle = await _context.Salles.Include(s => s.Cinema.Id).Where(s => s.Id == id)
-               .SingleOrDefaultAsync();
-        if (salle == null)
-        {
-            return NotFound();
-        }
-
-        return View(salle);
-    }
 
     public async Task<IActionResult> FindSallesCinema(int? id)
     {
@@ -128,4 +129,24 @@ public class SalleController : Controller
     {
         return _context.Salles.Any(s => s.Id == id);
     }
+
+    // GET: Salle/Delete/id
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var salle = await _context.Salles
+            .FirstOrDefaultAsync(s => s.Id == id);
+        if (salle == null)
+        {
+            return NotFound();
+        }
+
+        return View(salle);
+    }
+
+
 }
