@@ -1,0 +1,34 @@
+@model GestionCinema.Models.Salle
+
+@{
+    ViewData["Title"] = "Modifier la salle";
+}
+<h2 class="mb-5">| Modifier la salle numéro @Html.DisplayFor(model => model.NumeroSalle)</h2>
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <fieldset class="fieldset-style p-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row px-4 py-2">
+            <div class="col-sm-4">
+                <label asp-for="NbPlace" class="control-label"></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="number" asp-for="NbPlace" class="form-control" />
+                <span asp-validation-for="NbPlace" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group text-center mt-4">
+        <input type="submit" value="Modifier" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à
+        la page précédente</a>
+</div>
+
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

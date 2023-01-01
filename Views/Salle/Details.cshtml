@@ -29,7 +29,11 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Modifier</a> |
-    <a asp-action="Index">Retour a la liste des séances</a>
+<div class="row justify-content-around custom-line">
+    <div class="col-3">
+        <a asp-action="Index" class="btn btn-secondary">Retour a la liste</a>
+    </div>
+    <div class="col-3">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Modifier</a>
+    </div>
 </div>
