@@ -6,7 +6,6 @@ namespace GestionCinema.Models;
 
 public class Salle
 {
-
     public int Id { get; set; }
 
     public int CinemaId { get; set; }

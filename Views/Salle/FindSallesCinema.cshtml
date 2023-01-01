@@ -1,27 +1,22 @@
 @model IEnumerable<GestionCinema.Models.Salle>
 
 @{
-    ViewData["Title"] = "Les Salles";
+    ViewData["Title"] = "Rechercher les salles d'un cinéma";
 }
 <div class="text-center">
 
-    <h1>Salles</h1>
+    <h1>Salles du cinéma</h1>
 
-    <p>
-        <a asp-action="Create" class="btn btn-outline-primary">Ajouter une nouvelle salle</a>
-    </p>
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cinema)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.NumeroSalle)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.NbPlace)
                 </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,20 +24,17 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Cinema.Nom)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.NumeroSalle)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.NbPlace)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <a asp-action="Index" class="btn btn-secondary">Retour a la liste</a>
 </div>
