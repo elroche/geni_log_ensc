@@ -8,8 +8,15 @@ public class Seance
 {
 
     public int Id { get; set; }
+
+    public int FilmId { get; set; }
     public Film Film { get; set; } = null!;
+
+    public int SalleId { get; set; }
     public Salle Salle { get; set; } = null!;
+
+    public int CinemaId { get; set; }
+    public Cinema Cinema { get; set; } = null!;
 
     [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
     [Required(ErrorMessage = "Veuillez entrer une date valide.")]
@@ -18,4 +25,18 @@ public class Seance
     [Display(Name = "Nombre de place achetées")]
     public int NbPlaceAchete { get; set; }
 
+
+    // Default (empty) constructor
+    public Seance() { }
+
+    // Copy constructor
+    public Seance(SeanceDTO dto)
+    {
+        // Copy DTO field values
+        Id = dto.Id;
+        SalleId = dto.SalleId;
+        CinemaId = dto.CinemaId;
+        FilmId = dto.FilmId;
+
+    }
 }
