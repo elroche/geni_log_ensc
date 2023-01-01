@@ -26,7 +26,7 @@ public class FilmController : Controller
         {
             return NotFound();
         }
-        var film = await _context.Films.Where(f => f.Id == id && f.Statut == 1)
+        var film = await _context.Films.Where(f => f.Id == id)
                .SingleOrDefaultAsync();
         if (film == null)
         {
@@ -39,6 +39,8 @@ public class FilmController : Controller
     // GET: Film/Create
     public IActionResult Create()
     {
+         //var genres = Enum.GetNames(typeof(Models.Film.Genre));
+
         return View();
     }
 
@@ -133,8 +135,6 @@ public class FilmController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var film = await _context.Films.FindAsync(id);
-        //Archive du film
-        film.Statut = 0;
         _context.Films.Update(film);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

@@ -11,8 +11,10 @@ public class Salle
     public Cinema Cinema { get; set; } = null!;
 
     [Display(Name = "Nombre de place")]
+    [Required(ErrorMessage = "Veuillez entrer un nombre de place valide.")]
     public int NbPlace { get; set; }
 
     [Display(Name = "Numero de salle")]
+    [Required(ErrorMessage = "Veuillez entrer un numéro de salle valide.")]
     public int NumeroSalle { get; set; }
 }

@@ -16,14 +16,14 @@ public class FilmApiController : ControllerBase
     }
 
     // GET: api/FilmApi
-    public async Task<ActionResult<IEnumerable<Film>>> getFilms()
+    public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
     {
         return await _context.Films.OrderBy(f => f.Nom).ToListAsync();
     }
 
     // GET: api/FilmApi/
     [HttpGet("{id}")]
-    public async Task<ActionResult<Film>> getFilm(int id)
+    public async Task<ActionResult<Film>> GetFilm(int id)
     {
         var film = await _context.Films.Where(f => f.Id == id)
                 .SingleOrDefaultAsync();
@@ -43,6 +43,29 @@ public class FilmApiController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetFilm", new { id = film.Id }, film);
+    }
+
+     // PUT: api/FilmApi/
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutFilm(int id, Film film)
+    {
+        if (id != film.Id)
+            return BadRequest();
+
+        _context.Entry(film).State = EntityState.Modified;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!FilmExist(id))
+                return NotFound();
+            else
+                throw;
+        }
+        return NoContent();
     }
 
     // Returns true if a film with specified id already exists

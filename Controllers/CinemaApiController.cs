@@ -15,15 +15,16 @@ public class CinemaApiController : ControllerBase
         _context = context;
     }
 
-    // GET: api/CinemaApi
-    public async Task<ActionResult<IEnumerable<Cinema>>> getCinemas()
+    //Récupère tous les cinémas 
+    [HttpGet("")]
+    public async Task<ActionResult<IEnumerable<Cinema>>> GetCinemas()
     {
         return await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
     }
 
-    // GET: api/CinemaApi/
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Cinema>> getCinema(int id)
+    //Récupère le cinéma avec un identifiant
+    [HttpGet("{id}/getCinema")]
+    public async Task<ActionResult<Cinema>> GetCinema(int id)
     {
         var cinema = await _context.Cinemas.Where(c => c.Id == id)
                 .SingleOrDefaultAsync();
@@ -32,6 +33,19 @@ public class CinemaApiController : ControllerBase
             return NotFound();
         }
         return cinema;
+    }
+
+    //Récupère tous les cinémas en fonction d'une ville
+    [HttpGet("{ville}/getCinemas")]
+    public async Task<ActionResult<IEnumerable<Cinema>>> GetCinemas(string ville)
+    {
+        var cinemas = await _context.Cinemas.Where(c => c.Ville == ville)
+                .ToListAsync();
+        if (cinemas == null)
+        {
+            return NotFound();
+        }
+        return cinemas;
     }
 
     // POST: api/CinemaApi
@@ -43,6 +57,29 @@ public class CinemaApiController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetCinema", new { id = cinema.Id }, cinema);
+    }
+
+    // PUT: api/CinemaApi/
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutCinema(int id, Cinema cinema)
+    {
+        if (id != cinema.Id)
+            return BadRequest();
+
+        _context.Entry(cinema).State = EntityState.Modified;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CinemaExist(id))
+                return NotFound();
+            else
+                throw;
+        }
+        return NoContent();
     }
 
     // Returns true if a cinema with specified id already exists

@@ -38,7 +38,7 @@ public class CinemaController : Controller
         return View(cinema);
     }
 
-    public IActionResult RechercheCinemas()
+    public IActionResult SearchCinemas()
     {
         var ville = _context.Cinemas.GroupBy(c => c.Ville).Select(c => c.First()).ToList();
         ViewData["villes"] = ville;
@@ -47,7 +47,7 @@ public class CinemaController : Controller
     }
 
     //Afficher la liste de tous les cinémas d’une ville
-    public IActionResult ResultatRecherche(String ville)
+    public IActionResult ResultSearch(String ville)
     {
         if (ville == null)
         {
