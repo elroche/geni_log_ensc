@@ -1,48 +1,32 @@
 @model IEnumerable<GestionCinema.Models.Salle>
 
 @{
-    ViewData["Title"] = "Les Salles";
+    ViewData["Title"] = "Les salles";
 }
-<div class="text-center">
 
-    <h1>Salles</h1>
-
-    <p>
-        <a asp-action="Create" class="btn btn-outline-primary">Ajouter une nouvelle salle</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cinema)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NumeroSalle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NbPlace)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cinema.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NumeroSalle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NbPlace)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<h2 class="mb-5">| Les salles</h2>
+<a class="btn btn-dark" asp-action="Create"><i class="bi bi-plus-circle"></i> Ajouter une salle</a>
+<div class="card-group mt-5">
+    <div class="row justify-content-start">
+        @foreach (var item in Model)
+        {
+            <div class="col-xl-4 col-md-3 col-sm-2 my-2">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/img/salleCInema.webp" alt="Cinema image">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Cinema.Nom), salle
+                            @Html.DisplayFor(modelItem =>
+                        item.NumeroSalle)</h5>
+                        <hr>
+                        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayNameFor(modelItem => item.Cinema) :
+                            @Html.DisplayFor(modelItem => item.Cinema.Nom), @Html.DisplayFor(modelItem =>
+                        item.Cinema.Ville) </h6>
+                        <p class="card-text text-truncate-2">@Html.DisplayNameFor(modelItem => item.NbPlace) :
+                            @Html.DisplayFor(modelItem => item.NbPlace)</p>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

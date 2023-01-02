@@ -111,38 +111,35 @@ public class FilmController : Controller
         return View(film);
     }
 
-    // GET: Film/Delete/id
+    private bool FilmExist(int id)
+    {
+        return _context.Films.Any(f => f.Id == id);
+    }
+
+        // GET: /Film/Delete/id
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
         {
             return NotFound();
         }
-
         var film = await _context.Films
-            .FirstOrDefaultAsync(f => f.Id == id);
+            .FirstOrDefaultAsync(s => s.Id == id);
         if (film == null)
         {
             return NotFound();
         }
-
         return View(film);
     }
 
-    // POST: Film/Delete/id
+    // POST: /Film/Delete/id
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var film = await _context.Films.FindAsync(id);
-        _context.Films.Update(film);
+        _context.Films.Remove(film);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
-    }
-
-
-    private bool FilmExist(int id)
-    {
-        return _context.Films.Any(f => f.Id == id);
     }
 }
