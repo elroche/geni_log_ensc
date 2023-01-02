@@ -39,8 +39,8 @@ public class FilmController : Controller
     // GET: Film/Create
     public IActionResult Create()
     {
-        //var genres = Enum.GetNames(typeof(Models.Film.Genre));
-
+        var genres = Film.getNamesGenres();
+        ViewData["genres"] = genres;
         return View();
     }
 

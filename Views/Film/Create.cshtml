@@ -40,12 +40,11 @@
             </div>
             <div class="col-sm-6">
                 <select class="form-control" name="Genre">
-                    @*foreach (var item in Genre)
-                        {
-                        <option>@item</option>
-                        }*@
+                    @foreach(var genre in (string[])ViewData["genres"]){
+                        <option asp-for="Genre" value="@genre">@genre</option>
+                    }
+
                 </select>
-                <input asp-for="Genre" class="form-control" />
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
         </div>

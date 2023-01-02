@@ -18,7 +18,6 @@ public class Seance
     public int CinemaId { get; set; }
     public Cinema Cinema { get; set; } = null!;
 
-    [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
     [Required(ErrorMessage = "Veuillez entrer une date valide.")]
     public DateTime Date { get; set; }
 

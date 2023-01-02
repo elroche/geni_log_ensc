@@ -35,4 +35,9 @@ public class Film
     [Display(Name = "Durée")]
     [Required(ErrorMessage = "Veuillez entrer une durée valide.")]
     public double Duree { get; set; }
+
+    public static string[] getNamesGenres()
+    {
+        return (Enum.GetNames(typeof(Genre)));
+    }
 }
