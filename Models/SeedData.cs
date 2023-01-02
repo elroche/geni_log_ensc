@@ -19,7 +19,7 @@ public class SeedData
                     CodePostal = 92300,
                     Ville = "Levallois",
                     Responsable = "Lucie Balkany",
-                    PrixPlace = 7.5
+                    PrixPlace = 7
                 };
                 Cinema amiens = new Cinema
                 {
@@ -28,7 +28,7 @@ public class SeedData
                     CodePostal = 80000,
                     Ville = "Amiens",
                     Responsable = "Simone Beauchamp",
-                    PrixPlace = 7.5
+                    PrixPlace = 5
                 };
                 Cinema europe = new Cinema
                 {
@@ -37,7 +37,7 @@ public class SeedData
                     CodePostal = 62230,
                     Ville = "Coquelles",
                     Responsable = "Olivier Brousse",
-                    PrixPlace = 7.5
+                    PrixPlace = 8
                 };
                 Cinema madeleine = new Cinema
                 {
@@ -46,7 +46,7 @@ public class SeedData
                     CodePostal = 13000,
                     Ville = "Marseille",
                     Responsable = "Lorraine Crête",
-                    PrixPlace = 7.5
+                    PrixPlace = 9
                 };
                 Cinema joliette = new Cinema
                 {
@@ -55,7 +55,7 @@ public class SeedData
                     CodePostal = 13000,
                     Ville = "Marseille",
                     Responsable = "David Arnoux",
-                    PrixPlace = 7.5
+                    PrixPlace = 7
                 };
                 Cinema alesia = new Cinema
                 {
@@ -64,7 +64,7 @@ public class SeedData
                     CodePostal = 75014,
                     Ville = "Paris",
                     Responsable = "Remy Robert",
-                    PrixPlace = 7.5
+                    PrixPlace = 6
                 };
                 Cinema aquaboulevard = new Cinema
                 {
@@ -73,7 +73,7 @@ public class SeedData
                     CodePostal = 75015,
                     Ville = "Paris",
                     Responsable = "Pascaline Martel",
-                    PrixPlace = 7.5
+                    PrixPlace = 10
                 };
                 Cinema elysee = new Cinema
                 {
@@ -82,7 +82,7 @@ public class SeedData
                     CodePostal = 75008,
                     Ville = "Paris",
                     Responsable = "Thibaut Fontaine",
-                    PrixPlace = 7.5
+                    PrixPlace = 12
                 };
                 Cinema opera = new Cinema
                 {
@@ -91,7 +91,7 @@ public class SeedData
                     CodePostal = 75009,
                     Ville = "Paris",
                     Responsable = "Frédérique Lanctot",
-                    PrixPlace = 7.5
+                    PrixPlace = 9
                 };
                 Cinema wilson = new Cinema
                 {
@@ -100,7 +100,7 @@ public class SeedData
                     CodePostal = 31000,
                     Ville = "Toulouse",
                     Responsable = "Marjolaine Chensay",
-                    PrixPlace = 7.5
+                    PrixPlace = 7
                 };
                 Cinema comedie = new Cinema
                 {
@@ -109,7 +109,7 @@ public class SeedData
                     CodePostal = 34000,
                     Ville = "Montpellier",
                     Responsable = "Serge Charlebois",
-                    PrixPlace = 7.5
+                    PrixPlace = 8
                 };
                 context.Cinemas.AddRange(levallois, amiens, europe, madeleine, joliette, alesia, aquaboulevard, elysee, opera, wilson, comedie);
 
@@ -173,132 +173,140 @@ public class SeedData
                 //Ajout de plusieurs salles 
                 Salle levallois1 = new Salle
                 {
-                    Cinema = levallois,
+                    CinemaId = 1,
                     NbPlace = 250,
-                    NumeroSalle = 6,
+                    NumeroSalle = 6
                 };
                 Salle levallois2 = new Salle
                 {
-                    Cinema = levallois,
+                    CinemaId = 1,
                     NbPlace = 400,
-                    NumeroSalle = 12,
+                    NumeroSalle = 12
                 };
                 Salle comedie1 = new Salle
                 {
-                    Cinema = comedie,
+                    CinemaId = 11,
                     NbPlace = 458,
-                    NumeroSalle = 1,
+                    NumeroSalle = 1
                 };
                 Salle comedie2 = new Salle
                 {
-                    Cinema = comedie,
+                    CinemaId = 11,
                     NbPlace = 754,
-                    NumeroSalle = 2,
+                    NumeroSalle = 2
                 };
                 Salle comedie3 = new Salle
                 {
-                    Cinema = comedie,
+                    CinemaId = 11,
                     NbPlace = 550,
-                    NumeroSalle = 3,
+                    NumeroSalle = 3
                 };
                 Salle opera1 = new Salle
                 {
-                    Cinema = opera,
+                    CinemaId = 9,
                     NbPlace = 150,
-                    NumeroSalle = 1,
+                    NumeroSalle = 1
                 };
                 Salle opera2 = new Salle
                 {
-                    Cinema = opera,
+                    CinemaId = 9,
                     NbPlace = 270,
-                    NumeroSalle = 2,
+                    NumeroSalle = 2
                 };
                 Salle opera3 = new Salle
                 {
-                    Cinema = opera,
+                    CinemaId = 9,
                     NbPlace = 320,
-                    NumeroSalle = 3,
+                    NumeroSalle = 3
                 };
                 Salle wilson2 = new Salle
                 {
-                    Cinema = wilson,
+                    CinemaId = 10,
                     NbPlace = 350,
-                    NumeroSalle = 2,
+                    NumeroSalle = 2
                 };
                 Salle wilson4 = new Salle
                 {
-                    Cinema = wilson,
+                    CinemaId = 10,
                     NbPlace = 260,
-                    NumeroSalle = 4,
+                    NumeroSalle = 4
                 };
                 Salle wilson6 = new Salle
                 {
-                    Cinema = wilson,
+                    CinemaId = 10,
                     NbPlace = 200,
-                    NumeroSalle = 6,
+                    NumeroSalle = 6
                 };
                 Salle joliette1 = new Salle
                 {
-                    Cinema = joliette,
+                    CinemaId = 5,
                     NbPlace = 150,
-                    NumeroSalle = 1,
+                    NumeroSalle = 1
                 };
                 context.Salles.AddRange(levallois1, levallois2, comedie1, comedie2, comedie3, opera1, opera2, opera3, wilson2, wilson4, wilson6, joliette1);
 
                 //Ajout de plusieurs séances
                 context.Seances.AddRange(new Seance
                 {
-                    Film = pulpFiction,
-                    Salle = levallois1,
+                    FilmId = 1,
+                    SalleId = 1,
+                    CinemaId = 1,
                     Date = DateTime.Parse("2023-06-12"),
                     NbPlaceAchete = 142,
                 },
                 new Seance
                 {
-                    Film = theArtist,
-                    Salle = levallois1,
+                    FilmId = 4,
+                    SalleId = 1,
+                    CinemaId = 1,
                     Date = DateTime.Parse("2023-02-25"),
                     NbPlaceAchete = 70,
                 },
                 new Seance
                 {
-                    Film = inglourious,
-                    Salle = levallois2,
+                    FilmId = 2,
+                    SalleId = 2,
+                    CinemaId = 1,
                     Date = DateTime.Parse("2023-01-28"),
                     NbPlaceAchete = 320,
                 },
                 new Seance
                 {
-                    Film = inglourious,
-                    Salle = joliette1,
+                    FilmId = 2,
+                    SalleId = 12,
+                    CinemaId = 5,
                     Date = DateTime.Parse("2023-01-15"),
                     NbPlaceAchete = 80,
                 },
                 new Seance
                 {
-                    Film = inglourious,
-                    Salle = joliette1,
+                    FilmId = 2,
+                    SalleId = 12,
+                    CinemaId = 5,
                     Date = DateTime.Parse("2023-02-15"),
                     NbPlaceAchete = 23,
                 },
                 new Seance
                 {
-                    Film = planeteSinge,
-                    Salle = opera1,
+                    FilmId = 5,
+                    SalleId = 6,
+                    CinemaId = 9,
                     Date = DateTime.Parse("2023-01-10"),
                     NbPlaceAchete = 70,
                 },
                 new Seance
                 {
-                    Film = terminator,
-                    Salle = opera2,
+                    FilmId = 6,
+                    SalleId = 7,
+                    CinemaId = 9,
                     Date = DateTime.Parse("2023-01-08"),
                     NbPlaceAchete = 110,
                 },
                 new Seance
                 {
-                    Film = mome,
-                    Salle = opera2,
+                    FilmId = 3,
+                    SalleId = 7,
+                    CinemaId = 9,
                     Date = DateTime.Parse("2023-01-08"),
                     NbPlaceAchete = 24,
                 }
