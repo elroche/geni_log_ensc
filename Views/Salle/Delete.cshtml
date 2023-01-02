@@ -1,0 +1,29 @@
+@model GestionCinema.Models.Salle
+
+@{
+    ViewData["Title"] = "Supression d'une salle";
+}
+
+<div class="text-center">
+    <h2>Suppression d'une salle</h2>
+    <hr />
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+    <p>Etes vous sûr de vouloir supprimer cette salle?</p>
+
+    <div class="row justify-content-around custom-line">
+        <div class="col-3">
+            <a asp-action="Index" class="btn btn-secondary">Retour a la liste</a>
+        </div>
+
+        <div class="col-3">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Suppprimer" class="btn btn-danger" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

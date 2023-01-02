@@ -130,22 +130,30 @@ public class SalleController : Controller
         return _context.Salles.Any(s => s.Id == id);
     }
 
-    // GET: Salle/Delete/id
+    // GET: /Salle/Delete/id
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
         {
             return NotFound();
         }
-
-        var salle = await _context.Salles
-            .FirstOrDefaultAsync(s => s.Id == id);
+        var salle = await _context.Salles.FirstOrDefaultAsync(s => s.Id == id);
         if (salle == null)
         {
             return NotFound();
         }
-
         return View(salle);
+    }
+
+    // POST: /Salle/Delete/id
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var salle = await _context.Salles.FindAsync(id);
+        _context.Salles.Remove(salle);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
     }
 
 

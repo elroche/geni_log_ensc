@@ -37,6 +37,5 @@ public class Seance
         SalleId = dto.SalleId;
         CinemaId = dto.CinemaId;
         FilmId = dto.FilmId;
-
     }
 }
