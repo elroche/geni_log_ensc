@@ -47,6 +47,10 @@
     </dl>
 </fieldset>
 <div class="text-center mt-3">
+    <a asp-area="" asp-controller="Seance" asp-action="FindSeancesFilm" asp-route-id="@Model.Id"
+        class="btn btn-primary">Voir les séances</a>
+</div>
+<div class="text-center mt-3">
     <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-fill"></i>
         Modifier</a>
 </div>

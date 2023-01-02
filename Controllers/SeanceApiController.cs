@@ -16,7 +16,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi
-    public async Task<ActionResult<IEnumerable<Seance>>> getSeances()
+    public async Task<ActionResult<IEnumerable<Seance>>> GetSeances()
     {
         return await _context.Seances
             .Include(s => s.Film)
@@ -41,6 +41,24 @@ public class SeanceApiController : ControllerBase
             return NotFound();
         }
         return seance;
+    }
+
+    [HttpGet("{id}/Get")]
+    public async Task<ActionResult<IEnumerable<Seance>>> GetSeance(int id, int codePostal)
+    {
+        var seances = await _context.Seances
+                .Include(s => s.Film)
+                .Include(s => s.Salle)
+                .Include(s => s.Cinema)
+                .Where(s => s.CinemaId == id && s.Cinema.CodePostal==codePostal)
+                .GroupBy(s => s.Film)
+                .Select(s => s.First())
+                .ToListAsync();
+        if (seances == null)
+        {
+            return NotFound();
+        }
+        return seances;
     }
 
     // POST: api/SeanceApi
