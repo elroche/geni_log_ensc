@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GestionCinema.Data;
 using GestionCinema.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GestionCinema.Controllers;
 
@@ -39,24 +40,32 @@ public class SalleController : Controller
     }
 
     // GET: Salle/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        var cinemas = _context.Cinemas.OrderBy(c => c.Nom).ToList();
-        ViewData["cinemas"] = cinemas;
+        var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
+        ViewData["CinemaId"] = new SelectList(cinemas, "Id", "Nom");
         return View();
     }
 
+    // POST: Salle/Create
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Cinema,NbPlace,NumeroSalle")] Salle salle)
+    public async Task<IActionResult> Create([Bind("Id,CinemaId,NbPlace,NumeroSalle")] Salle salle)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Add(salle);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(salle);
+
+        // Lookup cinema
+        var cinema = _context.Cinemas.Find(salle.CinemaId);
+        Console.WriteLine(cinema.Nom);
+        // Define cinema for new salle
+        salle.Cinema = cinema!;
+
+        // Create new salle in DB
+        _context.Add(salle);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
     }
 
 

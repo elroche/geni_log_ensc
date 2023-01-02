@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Ajouter une séance";
 }
+
 <div class="text-center">
     <h1>Ajouter une séance</h1>
     <div class="row">
@@ -13,11 +14,6 @@
                     <label asp-for="Film" class="control-label"></label>
                     <input type="Film" asp-for="Film" class="form-control" />
                     <span asp-validation-for="Film" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Salle" class="control-label"></label>
-                    <input type="number" asp-for="Salle" class="form-control" />
-                    <span asp-validation-for="Salle" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Date" class="control-label"></label>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GestionCinema.Data;
+using GestionCinema.Models;
 
 namespace GestionCinema.Controllers;
 
@@ -61,6 +62,26 @@ public class SeanceController : Controller
         }
         return View(seance);
     }
+
+    // GET: Seance/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date, NbPlaceAchete")] Seance seance)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Add(seance);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(seance);
+    }
+
 
     // POST: /Seance/Delete/id
     [HttpPost, ActionName("Delete")]
