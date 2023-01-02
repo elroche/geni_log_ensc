@@ -54,10 +54,8 @@ public class SalleController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,CinemaId,NbPlace,NumeroSalle")] Salle salle)
     {
-
         // Lookup cinema
         var cinema = _context.Cinemas.Find(salle.CinemaId);
-        Console.WriteLine(cinema.Nom);
         // Define cinema for new salle
         salle.Cinema = cinema!;
 
