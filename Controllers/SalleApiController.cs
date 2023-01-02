@@ -18,14 +18,19 @@ public class SalleApiController : ControllerBase
     // GET: api/SalleApi
     public async Task<ActionResult<IEnumerable<Salle>>> GetSalles()
     {
-        return await _context.Salles.Include(s => s.Cinema).OrderBy(s => s.Id).ToListAsync();
+        return await _context.Salles
+            .Include(s => s.Cinema)
+            .OrderBy(s => s.Id)
+            .ToListAsync();
     }
 
     // GET: api/SalleApi/id
     [HttpGet("{id}")]
     public async Task<ActionResult<Salle>> GetSalle(int id)
     {
-        var salle = await _context.Salles.Include(s => s.Cinema).Where(s => s.Id == id)
+        var salle = await _context.Salles
+                .Include(s => s.Cinema)
+                .Where(s => s.Id == id)
                 .SingleOrDefaultAsync();
         if (salle == null)
         {

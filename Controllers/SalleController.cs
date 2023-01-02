@@ -137,7 +137,8 @@ public class SalleController : Controller
         {
             return NotFound();
         }
-        var salle = await _context.Salles.FirstOrDefaultAsync(s => s.Id == id);
+        var salle = await _context.Salles
+            .FirstOrDefaultAsync(s => s.Id == id);
         if (salle == null)
         {
             return NotFound();

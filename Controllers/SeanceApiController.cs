@@ -18,14 +18,23 @@ public class SeanceApiController : ControllerBase
     // GET: api/SeanceApi
     public async Task<ActionResult<IEnumerable<Seance>>> getSeances()
     {
-        return await _context.Seances.OrderBy(s => s.Id).ToListAsync();
+        return await _context.Seances
+            .Include(s => s.Film)
+            .Include(s => s.Salle)
+            .Include(s => s.Salle.Cinema)
+            .OrderBy(s => s.Id)
+            .ToListAsync();
     }
 
     // GET: api/SeanceApi/
     [HttpGet("{id}")]
-    public async Task<ActionResult<Seance>> getSeance(int id)
+    public async Task<ActionResult<Seance>> GetSeance(int id)
     {
-        var seance = await _context.Seances.Where(s => s.Id == id)
+        var seance = await _context.Seances
+                .Include(s => s.Film)
+                .Include(s => s.Salle)
+                .Include(s => s.Cinema)
+                .Where(s => s.Id == id)
                 .SingleOrDefaultAsync();
         if (seance == null)
         {
@@ -83,5 +92,19 @@ public class SeanceApiController : ControllerBase
     }
 
     */
+
+    // DELETE: api/SeanceApi/
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteSeance(int id)
+    {
+        var seance = await _context.Seances.FindAsync(id);
+        if (seance == null)
+            return NotFound();
+
+        _context.Seances.Remove(seance);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 
 }

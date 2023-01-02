@@ -3,46 +3,62 @@
 @{
     ViewData["Title"] = "Les Séances";
 }
-<div class="text-center">
+<h2 class="mb-5">|Les séances</h2>
 
-    <h1>Séances</h1>
-
-    <p>
-        <a asp-action="Create">Ajouter une nouvelle séance</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Film)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Salle.Cinema)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+<a class="btn btn-dark" asp-action="Create"><i class="bi bi-plus-circle"></i> Ajouter une nouvelle séance</a>
+<div class="container pt-4">
+    <div class="row justify-content-start">
+        @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Film.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Salle.Cinema.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    </td>
-                </tr>
+                <div class="col-sm p-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="/img/bobine.jpg" alt="Bobine image">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Film.Nom), @Html.DisplayFor(modelItem => item.Film.Date) </h5>
+                            <p class="card-text text-truncate-2">@Html.DisplayNameFor(model => model.Salle.Cinema) : @Html.DisplayFor(modelItem => item.Cinema.Nom)
+                                <br>@Html.DisplayFor(modelItem =>
+                            item.Film.Resume).</p>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+    </div>
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Film)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salle.Cinema)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Film.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salle.Cinema.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
