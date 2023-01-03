@@ -23,7 +23,7 @@ public class CinemaApiController : ControllerBase
     }
 
     //Récupère le cinéma avec un identifiant
-    [HttpGet("{id}/getCinema")]
+    [HttpGet("{id}/GetCinema")]
     public async Task<ActionResult<Cinema>> GetCinema(int id)
     {
         var cinema = await _context.Cinemas.Where(c => c.Id == id)
@@ -36,7 +36,7 @@ public class CinemaApiController : ControllerBase
     }
 
     //Récupère tous les cinémas en fonction d'une ville
-    [HttpGet("{ville}/getCinemas")]
+    [HttpGet("{ville}/GetCinemas")]
     public async Task<ActionResult<IEnumerable<Cinema>>> GetCinemas(string ville)
     {
         var cinemas = await _context.Cinemas.Where(c => c.Ville == ville)

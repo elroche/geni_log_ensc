@@ -47,6 +47,51 @@ public class SeanceController : Controller
         return View(seance);
     }
 
+    public async Task<IActionResult> FindSeancesFilm(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var seances = await _context.Seances
+            .Include(s => s.Film)
+            .Include(s => s.Salle)
+            .Include(s => s.Salle.Cinema)
+            .Where(s => s.Film.Id == id)
+            .ToListAsync();
+
+        if (seances == null)
+        {
+            return NotFound();
+        }
+
+        return View(seances);
+    }
+
+    public IActionResult FindFilmsCinema(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var seance = _context.Seances
+                .Include(s => s.Film)
+                .Include(s => s.Salle)
+                .Include(s => s.Cinema)
+                .Where(s => s.CinemaId == id)
+                .GroupBy(s => s.Film)
+                .Select(s => s.First())
+                .ToList();
+        ViewData["seances"] = seance;
+
+        if (seance == null)
+        {
+            return NotFound();
+        }
+
+        return View();
+    }
+
     // GET: /Seance/Delete/id
     public async Task<IActionResult> Delete(int? id)
     {

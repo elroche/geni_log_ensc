@@ -39,6 +39,25 @@ public class SalleController : Controller
         return View(salle);
     }
 
+    public async Task<IActionResult> FindSallesCinema(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var salles = await _context.Salles
+            .Include(s => s.Cinema)
+            .Where(s => s.Cinema.Id == id)
+            .ToListAsync();
+
+        if (salles == null)
+        {
+            return NotFound();
+        }
+
+        return View(salles);
+    }
+
     // GET: Salle/Create
     public async Task<IActionResult> Create()
     {
@@ -66,25 +85,6 @@ public class SalleController : Controller
         return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
     }
 
-
-    public async Task<IActionResult> FindSallesCinema(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-        var salles = await _context.Salles
-            .Include(s => s.Cinema)
-            .Where(s => s.Cinema.Id == id)
-            .ToListAsync();
-
-        if (salles == null)
-        {
-            return NotFound();
-        }
-
-        return View(salles);
-    }
 
     // GET: Salle/Edit/id
     public async Task<IActionResult> Edit(int? id)
