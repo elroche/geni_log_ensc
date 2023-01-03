@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GestionCinema.Data;
 using GestionCinema.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GestionCinema.Controllers;
 
@@ -92,6 +93,50 @@ public class SeanceController : Controller
         return View();
     }
 
+
+    // GET: Seance/Create
+    public async Task<IActionResult> Create()
+    {
+        var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
+        ViewData["CinemaId"] = new SelectList(cinemas, "Id", "Nom");
+
+        return View();
+    }
+
+    public async Task<IActionResult> Create2(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var salles = await _context.Salles.OrderBy(c => c.NumeroSalle).Where(s => s.CinemaId == id).ToListAsync();
+        ViewData["SalleId"] = new SelectList(salles, "Id", "NumeroSalle");
+
+
+        var films = await _context.Films.OrderBy(c => c.Nom).ToListAsync();
+        ViewData["FilmId"] = new SelectList(films, "Id", "Nom");
+
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date, NbPlaceAchete")] Seance seance)
+    {
+        // Lookup cinema
+        var cinema = _context.Cinemas.Find(seance.CinemaId);
+        // Define cinema for new salle
+        seance.Cinema = cinema!;
+
+        if (ModelState.IsValid)
+        {
+            _context.Add(seance);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(seance);
+    }
+
     // GET: /Seance/Delete/id
     public async Task<IActionResult> Delete(int? id)
     {
@@ -104,25 +149,6 @@ public class SeanceController : Controller
         if (seance == null)
         {
             return NotFound();
-        }
-        return View(seance);
-    }
-
-    // GET: Seance/Create
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date, NbPlaceAchete")] Seance seance)
-    {
-        if (ModelState.IsValid)
-        {
-            _context.Add(seance);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
         return View(seance);
     }
