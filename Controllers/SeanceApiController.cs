@@ -26,8 +26,8 @@ public class SeanceApiController : ControllerBase
             .ToListAsync();
     }
 
-    // GET: api/SeanceApi/
-    [HttpGet("{id}")]
+    // GET: api/SeanceApi/GetSeance/id
+    [HttpGet("GetSeance/{id}")]
     public async Task<ActionResult<Seance>> GetSeance(int id)
     {
         var seance = await _context.Seances
@@ -43,16 +43,34 @@ public class SeanceApiController : ControllerBase
         return seance;
     }
 
-    [HttpGet("{id}/Get")]
-    public async Task<ActionResult<IEnumerable<Seance>>> GetSeance(int id, int codePostal)
+    // GET: api/SeanceApi/GetFilms/id
+    [HttpGet("GetFilms/{id}")]
+    public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int id)
     {
         var seances = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.CinemaId == id && s.Cinema.CodePostal==codePostal)
+                .Where(s => s.CinemaId == id)
                 .GroupBy(s => s.Film)
                 .Select(s => s.First())
+                .ToListAsync();
+        if (seances == null)
+        {
+            return NotFound();
+        }
+        return seances;
+    }
+
+    // GET: api/SeanceApi/GetSeanceFilms/id
+    [HttpGet("GetSeanceFilms/{id}")]
+    public async Task<ActionResult<IEnumerable<Seance>>> GetSeanceFilms(int id)
+    {
+        var seances = await _context.Seances
+                .Include(s => s.Film)
+                .Include(s => s.Salle)
+                .Include(s => s.Cinema)
+                .Where(s => s.Film.Id == id)
                 .ToListAsync();
         if (seances == null)
         {
