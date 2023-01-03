@@ -3,19 +3,11 @@
 @{
     ViewData["Title"] = "Supression d'un film";
 }
-
-<div class="text-center">
-    <h2>Suppression d'un film</h2>
-    <hr />
-    <p class="text-danger">@ViewData["ErrorMessage"]</p>
-    <p>Etes vous sûr de vouloir supprimer ce film?</p>
-
-    <div class="row justify-content-around custom-line">
-        <div class="col-3">
-            <a asp-action="Index" class="btn btn-secondary">Retour a la liste</a>
-        </div>
-
-        <div class="col-3">
+<h2 class="mb-5">| Suppression du film @Html.DisplayFor(model => model.Nom) </h2>
+    <div class="container pt-4">
+        <p class="text-danger">@ViewData["ErrorMessage"]</p>
+        <h5 class="text-center mb-4">Etes vous sûr de vouloir supprimer ce film?</h5>
+        <div class="text-center mb-5">
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -25,5 +17,9 @@
                 </div>
             }
         </div>
+        <div class="mt-5 pt-5">
+            <a class="text-decoration-none" asp-action="Details" asp-route-id="@Model.Id"><i
+                    class="bi bi-arrow-left-circle-fill"></i> Retour à
+                la page précédente</a>
+        </div>
     </div>
-</div>
