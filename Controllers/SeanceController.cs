@@ -95,22 +95,24 @@ public class SeanceController : Controller
 
 
     // GET: Seance/Create
-    public async Task<IActionResult> Create()
+    public async Task<IActionResult> CreateInitial()
     {
         var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
         ViewData["CinemaId"] = new SelectList(cinemas, "Id", "Nom");
         return View();
     }
 
-    public async Task<IActionResult> Create2(int? id)
+    public async Task<IActionResult> Create(int? CinemaId)
     {
-        if (id == null)
+        if (CinemaId == null)
         {
             return NotFound();
         }
-        var salles = await _context.Salles.OrderBy(c => c.NumeroSalle).Where(s => s.CinemaId == id).ToListAsync();
-        ViewData["SalleId"] = new SelectList(salles, "Id", "NumeroSalle");
+        var cinema = _context.Cinemas.Find(CinemaId);
+        ViewData["cinema"] = cinema.Nom;
 
+        var salles = await _context.Salles.OrderBy(c => c.NumeroSalle).Where(s => s.CinemaId == CinemaId).ToListAsync();
+        ViewData["SalleId"] = new SelectList(salles, "Id", "NumeroSalle");
 
         var films = await _context.Films.OrderBy(c => c.Nom).ToListAsync();
         ViewData["FilmId"] = new SelectList(films, "Id", "Nom");
@@ -120,20 +122,25 @@ public class SeanceController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date, NbPlaceAchete")] Seance seance)
+    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date")] Seance seance)
     {
+        // Lookup film
+        var film = _context.Films.Find(seance.FilmId);
         // Lookup cinema
         var cinema = _context.Cinemas.Find(seance.CinemaId);
-        // Define cinema for new salle
-        seance.Cinema = cinema!;
+        // Lookup salle
+        var salle = _context.Salles.Find(seance.SalleId);
 
-        if (ModelState.IsValid)
-        {
-            _context.Add(seance);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(seance);
+        // Define cinema, film, and salle for new seance
+        seance.Cinema = cinema!;
+        seance.Film = film!;
+        seance.Salle = salle!;
+
+        // Create new salle in DB
+        _context.Add(seance);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
     }
 
     // GET: /Seance/Delete/id

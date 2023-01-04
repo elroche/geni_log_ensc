@@ -4,28 +4,53 @@
     ViewData["Title"] = "Ajouter une séance";
 }
 
-<h2 class="mb-5">| Ajouter une séance </h2>
-<form asp-controller="Seance" asp-action="Create2" method="get">
+<h2 class="mb-5">| Ajouter une séance pour le cinéma @ViewData["cinema"]</h2>
+<form asp-action="Create">
+    <input type="hidden" asp-for="CinemaId" />
     <fieldset class="fieldset-style p-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row px-4 py-2">
             <div class="col-sm-4">
-                <label asp-for="Cinema" class="control-label"></label>
+                <label asp-for="Film" class="control-label"></label>
             </div>
             <div class="col-sm-6">
-                <select asp-for="CinemaId" class="form-control" asp-items="ViewBag.CinemaId"></select>
-                <span asp-validation-for="CinemaId" class="text-danger"></span>
+                <select asp-for="FilmId" class="form-control" asp-items="ViewBag.FilmId"></select>
+                <span asp-validation-for="FilmId" class="text-danger"></span>
             </div>
         </div>
+
+        <div class="form-group row px-4 py-2">
+            <div class="col-sm-4">
+                <label asp-for="Salle" class="control-label"></label>
+            </div>
+            <div class="col-sm-6">
+                <select asp-for="SalleId" class="form-control" asp-items="ViewBag.SalleId"></select>
+                <span asp-validation-for="SalleId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row px-4 py-2">
+            <div class="col-sm-4">
+                <label asp-for="Date" class="control-label"></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="date" asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+
     </fieldset>
+
     <div class="form-group text-center mt-4">
-        <input type="submit" value=CinemaId class="btn btn-primary" />
+        <input type="submit" value="Ajouter" class="btn btn-primary" />
     </div>
 </form>
-<div class="form-group text-center mt-4">
-    <a asp-action="Create2" asp-route-id=CinemaId class="btn btn-primary">Suivant</a>
-</div>
 <div class="mt-4">
     <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la
         page précédente</a>
 </div>
+
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

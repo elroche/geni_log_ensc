@@ -22,7 +22,7 @@ public class Seance
     public DateTime Date { get; set; }
 
     [Display(Name = "Nombre de place achetées")]
-    public int NbPlaceAchete { get; set; }
+    public int NbPlaceAchete { get; set; } = 0;
 
 
     // Default (empty) constructor
