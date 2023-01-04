@@ -47,7 +47,10 @@
             </form>
         </div>
     </div>
-
+    <div class="text-center mt-3">
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
+            Supprimer</a>
+    </div>
     <div>
         <a asp-action="Index">Retour à la liste</a>
     </div>

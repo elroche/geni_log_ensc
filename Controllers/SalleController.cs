@@ -93,7 +93,6 @@ public class SalleController : Controller
         {
             return NotFound();
         }
-
         var salle = await _context.Salles.Include(s => s.Cinema).Where(s => s.Id == id)
                .SingleOrDefaultAsync();
         if (salle == null)
@@ -106,30 +105,18 @@ public class SalleController : Controller
     // POST: Salle/Edit/id
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id, Cinema, NbPlace, NumeroSalle")] Salle salle)
+    public async Task<IActionResult> Edit(int id, [Bind("Id, CinemaId, NbPlace, NumeroSalle")] Salle salle)
     {
         if (id != salle.Id)
         {
             return NotFound();
         }
+        var cinema = _context.Cinemas.Find(salle.CinemaId);
+        salle.Cinema = cinema!;
+        _context.Update(salle);
+        await _context.SaveChangesAsync();
 
-        try
-        {
-            _context.Update(salle);
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!SalleExist(salle.Id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
     }
 
     private bool SalleExist(int id)

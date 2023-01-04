@@ -74,7 +74,7 @@ public class SeanceController : Controller
         {
             return NotFound();
         }
-        var seance = _context.Seances
+        var seances = _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
@@ -82,9 +82,9 @@ public class SeanceController : Controller
                 .GroupBy(s => s.Film)
                 .Select(s => s.First())
                 .ToList();
-        ViewData["seances"] = seance;
+        ViewData["seances"] = seances;
 
-        if (seance == null)
+        if (seances == null)
         {
             return NotFound();
         }
