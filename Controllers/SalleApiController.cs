@@ -50,6 +50,35 @@ public class SalleApiController : ControllerBase
         return CreatedAtAction("GetSalle", new { id = salle.Id }, salle);
     }
 
+    // PUT: api/SalleApi/
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutSalle(int id, Salle salle)
+    {
+        if (id != salle.Id)
+            return BadRequest();
+
+        _context.Entry(salle).State = EntityState.Modified;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!SalleExist(id))
+                return NotFound();
+            else
+                throw;
+        }
+        return NoContent();
+    }
+
+    // Returns true if a film with specified id already exists
+    private bool SalleExist(int id)
+    {
+        return _context.Salles.Any(s => s.Id == id);
+    }
+
     /*
     // PUT: api/SalleApi/id
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

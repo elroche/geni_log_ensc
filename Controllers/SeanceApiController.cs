@@ -21,7 +21,7 @@ public class SeanceApiController : ControllerBase
         return await _context.Seances
             .Include(s => s.Film)
             .Include(s => s.Salle)
-            .Include(s => s.Salle.Cinema)
+            .Include(s => s.Cinema)
             .OrderBy(s => s.Id)
             .ToListAsync();
     }
@@ -88,6 +88,35 @@ public class SeanceApiController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetSeance", new { id = seance.Id }, seance);
+    }
+
+    // PUT: api/SeanceApi/
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutSeance(int id, Seance seance)
+    {
+        if (id != seance.Id)
+            return BadRequest();
+
+        _context.Entry(seance).State = EntityState.Modified;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!SeanceExist(id))
+                return NotFound();
+            else
+                throw;
+        }
+        return NoContent();
+    }
+
+    // Returns true if a film with specified id already exists
+    private bool SeanceExist(int id)
+    {
+        return _context.Seances.Any(s => s.Id == id);
     }
 
     /*

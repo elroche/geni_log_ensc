@@ -143,6 +143,50 @@ public class SeanceController : Controller
         return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
     }
 
+    // GET: Seance/Edit/id
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var seance = await _context.Seances
+                .Include(s => s.Film)
+                .Include(s => s.Salle)
+                .Include(s => s.Cinema)
+                .Where(s => s.Id == id)
+               .SingleOrDefaultAsync();
+        if (seance == null)
+        {
+            return NotFound();
+        }
+
+        var films = await _context.Films.OrderBy(f => f.Nom).ToListAsync();
+        ViewData["FilmId"] = new SelectList(films, "Id", "Nom");
+
+        var salles = await _context.Salles.OrderBy(s => s.NumeroSalle).Where(s => s.CinemaId == seance.CinemaId).ToListAsync();
+        ViewData["SalleId"] = new SelectList(salles, "Id", "NumeroSalle");
+
+        return View(seance);
+    }
+
+    // POST: Seance/Edit/id
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id, FilmId, Film, SalleId, Salle, CinemaId, Cinema, Date, NbPlaceAchete")] Seance seance)
+    {
+        if (id != seance.Id)
+        {
+            return NotFound();
+        }
+        var cinema = _context.Cinemas.Find(seance.CinemaId);
+        seance.Cinema = cinema!;
+        _context.Update(seance);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
+    }
+
     // GET: /Seance/Delete/id
     public async Task<IActionResult> Delete(int? id)
     {
