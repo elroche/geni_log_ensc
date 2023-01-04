@@ -99,7 +99,6 @@ public class SeanceController : Controller
     {
         var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
         ViewData["CinemaId"] = new SelectList(cinemas, "Id", "Nom");
-
         return View();
     }
 
