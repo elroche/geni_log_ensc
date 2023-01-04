@@ -136,7 +136,7 @@ public class SeanceController : Controller
         seance.Film = film!;
         seance.Salle = salle!;
 
-        // Create new salle in DB
+        // Create new seance in DB
         _context.Add(seance);
         await _context.SaveChangesAsync();
 
