@@ -143,12 +143,14 @@ public class SeanceController : Controller
         seance.Date = seanceDTO.Date;
         seance.NbPlaceAchete = seanceDTO.NbPlaceAchete;
 
-
-        // Create new seance in DB
-        _context.Add(seance);
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
+        if (ModelState.IsValid)
+        {
+            // Create new seance in DB
+            _context.Add(seance);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
+        }
+        return View(seance);
     }
 
     // GET: Seance/Edit/id
@@ -203,10 +205,32 @@ public class SeanceController : Controller
         seance.Date = seanceDTO.Date;
         seance.NbPlaceAchete = seanceDTO.NbPlaceAchete;
 
-        _context.Update(seance);
-        await _context.SaveChangesAsync();
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(seance);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SeanceExist(seance.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+        return View(seance);
+    }
 
-        return RedirectToAction("Details", new RouteValueDictionary { { "id", seance.Id } });
+    private bool SeanceExist(int id)
+    {
+        return _context.Seances.Any(s => s.Id == id);
     }
 
     // GET: /Seance/Delete/id

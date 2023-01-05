@@ -83,11 +83,16 @@ public class SalleController : Controller
         salle.NbPlace = salleDTO.NbPlace;
         salle.NumeroSalle = salleDTO.NumeroSalle;
 
-        // Create new salle in DB
-        _context.Add(salle);
-        await _context.SaveChangesAsync();
+        if (ModelState.IsValid)
+        {
+            // Create new salle in DB
+            _context.Add(salle);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
+        }
+        return View(salle);
 
-        return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
+
     }
 
 
@@ -123,10 +128,28 @@ public class SalleController : Controller
         salle.Cinema = cinema!;
         salle.NbPlace = salleDTO.NbPlace;
         salle.NumeroSalle = salleDTO.NumeroSalle;
-        _context.Update(salle);
-        await _context.SaveChangesAsync();
 
-        return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(salle);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", new RouteValueDictionary { { "id", salle.Id } });
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SalleExist(salle.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+        return View(salle);
     }
 
     private bool SalleExist(int id)
