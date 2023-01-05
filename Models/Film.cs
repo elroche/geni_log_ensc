@@ -32,12 +32,18 @@ public class Film
     [Required(ErrorMessage = "Veuillez entrer une date valide.")]
     public DateTime Date { get; set; }
 
-    [Display(Name = "Durée")]
-    [Required(ErrorMessage = "Veuillez entrer une durée valide.")]
-    public double Duree { get; set; }
+    [Display(Name = "Durée (en minutes)")]
+    [Required(ErrorMessage = "Veuillez entrer une durée (en minutes) valide.")]
+    public int Duree { get; set; }
 
     public static string[] getNamesGenres()
     {
         return (Enum.GetNames(typeof(Genre)));
+    }
+
+    public string Convert(int duree)
+    {
+        double hours = (duree - duree % 60) / 60;
+        return "" + hours + "h " + (duree - hours * 60) + "min";
     }
 }

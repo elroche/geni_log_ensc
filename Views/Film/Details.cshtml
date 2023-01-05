@@ -1,3 +1,4 @@
+@using System;
 @model GestionCinema.Models.Film
 
 @{
@@ -42,7 +43,7 @@
             @Html.DisplayNameFor(model => model.Duree)
         </dt>
         <dd class="col-sm-8">
-            @Html.DisplayFor(model => model.Duree)
+            @Model.Convert(Model.Duree)
         </dd>
     </dl>
 </fieldset>
