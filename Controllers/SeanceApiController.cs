@@ -82,8 +82,19 @@ public class SeanceApiController : ControllerBase
     // POST: api/SeanceApi
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
-    public async Task<ActionResult<Seance>> PostSeance(Seance seance)
+    public async Task<ActionResult<Seance>> PostSeance(SeanceDTO seanceDTO)
     {
+        Seance seance = new Seance(seanceDTO);
+
+        var cinema = await _context.Cinemas.Where(c => c.Id == seance.CinemaId).SingleOrDefaultAsync();
+        seance.Cinema = cinema!;
+
+        var film = await _context.Films.Where(f => f.Id == seance.FilmId).SingleOrDefaultAsync();
+        seance.Film = film!;
+
+        var salle = await _context.Salles.Where(s => s.Id == seance.SalleId).SingleOrDefaultAsync();
+        seance.Salle = salle!;
+
         _context.Seances.Add(seance);
         await _context.SaveChangesAsync();
 
@@ -93,10 +104,21 @@ public class SeanceApiController : ControllerBase
     // PUT: api/SeanceApi/
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutSeance(int id, Seance seance)
+    public async Task<IActionResult> PutSeance(int id, SeanceDTO seanceDTO)
     {
-        if (id != seance.Id)
+        if (id != seanceDTO.Id)
             return BadRequest();
+
+        Seance seance = new Seance(seanceDTO);
+
+        var cinema = await _context.Cinemas.Where(c => c.Id == seance.CinemaId).SingleOrDefaultAsync();
+        seance.Cinema = cinema!;
+
+        var film = await _context.Films.Where(f => f.Id == seance.FilmId).SingleOrDefaultAsync();
+        seance.Film = film!;
+
+        var salle = await _context.Salles.Where(s => s.Id == seance.SalleId).SingleOrDefaultAsync();
+        seance.Salle = salle!;
 
         _context.Entry(seance).State = EntityState.Modified;
         try
@@ -119,45 +141,7 @@ public class SeanceApiController : ControllerBase
         return _context.Seances.Any(s => s.Id == id);
     }
 
-    /*
-
-    // PUT: api/SeanceApi/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutSeance(int id, Seance seance1)
-    {
-        if (id != seance1.Id)
-            return BadRequest();
-
-        Seance seance = new Seance(seance1);
-
-        // Lookup student and course
-        var salle = _context.Salles.Find(seance.Salle.id);
-        var film = _context.Films.Find(seance.Film.id);
-
-        // Define student and course for updated enrollment
-        seance.Salle = salle!;
-        seance.Film = film!;
-
-        _context.Entry(seance).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.Seances.Any(s => s.Id == id))
-                return NotFound();
-            else
-                throw;
-        }
-
-        return NoContent();
-    }
-
-    */
-
+    
     // DELETE: api/SeanceApi/
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSeance(int id)
