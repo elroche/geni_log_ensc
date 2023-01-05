@@ -4,7 +4,12 @@
     ViewData["Title"] = "Les Séances";
 }
 <h2 class="mb-5">|Les séances</h2>
-
+@if (@TempData["messageSuccess"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["messageSuccess"]
+    </div>
+}
 <a class="btn btn-dark" asp-action="CreateInitial"><i class="bi bi-plus-circle"></i> Ajouter une nouvelle séance</a>
 <div class="card-group mt-5">
     <div class="row justify-content-start">

@@ -260,4 +260,23 @@ public class SeanceController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> BuyTicket(int id)
+    {
+        var seance = _context.Seances.Find(id);
+        if (seance == null)
+        {
+            return NotFound();
+        }
+        seance.NbPlaceAchete = seance.NbPlaceAchete + 1;
+        _context.Update(seance);
+        await _context.SaveChangesAsync();
+
+        Console.WriteLine("Coucou");
+        TempData["messageSuccess"] = "Vous venez d'acheter un ticket ! A bientôt !";
+
+        return RedirectToAction(nameof(Index));
+    }
 }

@@ -4,6 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
+
 <h1>Details de la séance </h1>
 
 <div>
@@ -44,7 +45,7 @@
                 @Html.DisplayNameFor(model => model.Film.Duree)
             </dt>
             <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.Film.Duree)
+                @Model.Film.Convert(Model.Film.Duree)
             </dd>
             <dt class="col-sm-4">
                 @Html.DisplayNameFor(model => model.NbPlaceAchete)
@@ -55,13 +56,22 @@
         </dl>
     </fieldset>
 </div>
+@using (Html.BeginForm("BuyTicket", "Seance", FormMethod.Post))
+{
+    <div class="text-center mt-3">
+        <input type="hidden" asp-for="Id" />
+        <input class="btn btn-primary" type="submit" value="Acheter un ticket" />
+    </div>
+}
 
 <div class="text-center mt-3">
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-dark"><i class="bi bi-pencil-fill"></i> Modifier</a>
 </div>
 <div class="text-center mt-3">
-    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i> Supprimer</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
+        Supprimer</a>
 </div>
 <div class="mt-5">
-    <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la page précédente</a>
+    <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la page
+        précédente</a>
 </div>
