@@ -123,8 +123,10 @@ public class SeanceController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date")] Seance seance)
+    public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date")] SeanceDTO seanceDTO)
     {
+        Seance seance = new Seance(seanceDTO);
+
         // Lookup film
         var film = _context.Films.Find(seance.FilmId);
         // Lookup cinema
@@ -136,6 +138,11 @@ public class SeanceController : Controller
         seance.Cinema = cinema!;
         seance.Film = film!;
         seance.Salle = salle!;
+
+        seance.Id = seanceDTO.Id;
+        seance.Date = seanceDTO.Date;
+        seance.NbPlaceAchete = seanceDTO.NbPlaceAchete;
+
 
         // Create new seance in DB
         _context.Add(seance);
@@ -174,12 +181,15 @@ public class SeanceController : Controller
     // POST: Seance/Edit/id
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id, FilmId, SalleId, CinemaId, Date, NbPlaceAchete")] Seance seance)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id, FilmId, SalleId, CinemaId, Date, NbPlaceAchete")] SeanceDTO seanceDTO)
     {
-        if (id != seance.Id)
+        if (id != seanceDTO.Id)
         {
             return NotFound();
         }
+
+        Seance seance = new Seance(seanceDTO);
+
         var cinema = _context.Cinemas.Find(seance.CinemaId);
         seance.Cinema = cinema!;
 
@@ -188,6 +198,10 @@ public class SeanceController : Controller
 
         var salle = _context.Salles.Find(seance.SalleId);
         seance.Salle = salle!;
+
+        seance.Id = seanceDTO.Id;
+        seance.Date = seanceDTO.Date;
+        seance.NbPlaceAchete = seanceDTO.NbPlaceAchete;
 
         _context.Update(seance);
         await _context.SaveChangesAsync();

@@ -71,12 +71,17 @@ public class SalleController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,CinemaId,NbPlace,NumeroSalle")] Salle salle)
+    public async Task<IActionResult> Create([Bind("Id,CinemaId,NbPlace,NumeroSalle")] SalleDTO salleDTO)
     {
+        Salle salle = new Salle(salleDTO);
+
         // Lookup cinema
-        var cinema = _context.Cinemas.Find(salle.CinemaId);
+        var cinema = await _context.Cinemas.Where(c => c.Id == salle.CinemaId).SingleOrDefaultAsync();
         // Define cinema for new salle
         salle.Cinema = cinema!;
+
+        salle.NbPlace = salleDTO.NbPlace;
+        salle.NumeroSalle = salleDTO.NumeroSalle;
 
         // Create new salle in DB
         _context.Add(salle);
@@ -105,14 +110,19 @@ public class SalleController : Controller
     // POST: Salle/Edit/id
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id, CinemaId, NbPlace, NumeroSalle")] Salle salle)
+    public async Task<IActionResult> Edit(int id, [Bind("Id, CinemaId, NbPlace, NumeroSalle")] SalleDTO salleDTO)
     {
-        if (id != salle.Id)
+        if (id != salleDTO.Id)
         {
             return NotFound();
         }
+
+        Salle salle = new Salle(salleDTO);
+
         var cinema = _context.Cinemas.Find(salle.CinemaId);
         salle.Cinema = cinema!;
+        salle.NbPlace = salleDTO.NbPlace;
+        salle.NumeroSalle = salleDTO.NumeroSalle;
         _context.Update(salle);
         await _context.SaveChangesAsync();
 

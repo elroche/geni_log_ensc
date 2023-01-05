@@ -28,13 +28,13 @@ public class SeanceApiController : ControllerBase
 
     // GET: api/SeanceApi/GetSeance/id
     [HttpGet("GetSeance/{id}")]
-    public async Task<ActionResult<Seance>> GetSeance(int id)
+    public async Task<ActionResult<Seance>> GetSeance(int idSeance)
     {
         var seance = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.Id == id)
+                .Where(s => s.Id == idSeance)
                 .SingleOrDefaultAsync();
         if (seance == null)
         {
@@ -45,13 +45,13 @@ public class SeanceApiController : ControllerBase
 
     // GET: api/SeanceApi/GetFilms/id
     [HttpGet("GetFilms/{id}")]
-    public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int id)
+    public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int idCinema)
     {
         var seances = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.CinemaId == id)
+                .Where(s => s.CinemaId == idCinema)
                 .GroupBy(s => s.Film)
                 .Select(s => s.First())
                 .ToListAsync();
@@ -64,13 +64,13 @@ public class SeanceApiController : ControllerBase
 
     // GET: api/SeanceApi/GetSeancesFilm/id
     [HttpGet("GetSeancesFilm/{id}")]
-    public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int id)
+    public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int idFilm)
     {
         var seances = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.Film.Id == id)
+                .Where(s => s.Film.Id == idFilm)
                 .ToListAsync();
         if (seances == null)
         {
@@ -141,7 +141,7 @@ public class SeanceApiController : ControllerBase
         return _context.Seances.Any(s => s.Id == id);
     }
 
-    
+
     // DELETE: api/SeanceApi/
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSeance(int id)
