@@ -174,7 +174,7 @@ public class SeanceController : Controller
     // POST: Seance/Edit/id
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id, FilmId, SalleId, CinemaId, Date, NbPlaceAchete")] Seance seance)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id, FilmId, SalleId, CinemaId, Date, NbPlaceAchete")] Seance seance)
     {
         if (id != seance.Id)
         {

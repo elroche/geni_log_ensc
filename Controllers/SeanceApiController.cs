@@ -62,9 +62,9 @@ public class SeanceApiController : ControllerBase
         return seances;
     }
 
-    // GET: api/SeanceApi/GetSeanceFilms/id
-    [HttpGet("GetSeanceFilms/{id}")]
-    public async Task<ActionResult<IEnumerable<Seance>>> GetSeanceFilms(int id)
+    // GET: api/SeanceApi/GetSeancesFilm/id
+    [HttpGet("GetSeancesFilm/{id}")]
+    public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int id)
     {
         var seances = await _context.Seances
                 .Include(s => s.Film)

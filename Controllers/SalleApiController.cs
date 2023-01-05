@@ -42,8 +42,13 @@ public class SalleApiController : ControllerBase
     // POST: api/SalleApi
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
-    public async Task<ActionResult<Salle>> PostSalle(Salle salle)
+    public async Task<ActionResult<Salle>> PostSalle(SalleDTO salleDTO)
     {
+        Salle salle = new Salle(salleDTO);
+
+        var cinema = await _context.Cinemas.Where(c => c.Id == salle.CinemaId).SingleOrDefaultAsync();
+        salle.Cinema = cinema!;
+
         _context.Salles.Add(salle);
         await _context.SaveChangesAsync();
 
@@ -53,10 +58,15 @@ public class SalleApiController : ControllerBase
     // PUT: api/SalleApi/
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutSalle(int id, Salle salle)
+    public async Task<IActionResult> PutSalle(int id, SalleDTO salleDTO)
     {
-        if (id != salle.Id)
+        if (id != salleDTO.Id)
             return BadRequest();
+
+        Salle salle = new Salle(salleDTO);
+
+        var cinema = await _context.Cinemas.Where(c => c.Id == salle.CinemaId).SingleOrDefaultAsync();
+        salle.Cinema = cinema!;
 
         _context.Entry(salle).State = EntityState.Modified;
         try
