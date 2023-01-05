@@ -9,6 +9,8 @@ public class Salle
     public int Id { get; set; }
 
     public int CinemaId { get; set; }
+
+    [Display(Name = "Cinéma")]
     public Cinema Cinema { get; set; } = null!;
 
     [Display(Name = "Nombre de place")]

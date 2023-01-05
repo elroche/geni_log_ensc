@@ -18,7 +18,10 @@ public class CinemaController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
+        var cinemas = await _context.Cinemas
+            .OrderBy(c => c.Nom)
+            .ToListAsync();
+
         return View(cinemas);
     }
 
@@ -28,8 +31,12 @@ public class CinemaController : Controller
         {
             return NotFound();
         }
-        var cinema = await _context.Cinemas.Where(c => c.Id == id)
-               .SingleOrDefaultAsync();
+        var cinema = await _context.Cinemas
+            .Include(c => c.Salles)
+            .Include(c => c.Seances)
+            .Where(c => c.Id == id)
+            .SingleOrDefaultAsync();
+            
         if (cinema == null)
         {
             return NotFound();

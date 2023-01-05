@@ -97,7 +97,8 @@ public class SeanceController : Controller
     // GET: Seance/Create
     public async Task<IActionResult> CreateInitial()
     {
-        var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
+        var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).Where(c => c.Salles.Count() >= 1).ToListAsync();
+
         ViewData["CinemaId"] = new SelectList(cinemas, "Id", "Nom");
         return View();
     }
@@ -173,7 +174,7 @@ public class SeanceController : Controller
     // POST: Seance/Edit/id
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id, FilmId, Film, SalleId, Salle, CinemaId, Cinema, Date, NbPlaceAchete")] Seance seance)
+    public async Task<IActionResult> Edit(int id, [Bind("Id, FilmId, SalleId, CinemaId, Date, NbPlaceAchete")] Seance seance)
     {
         if (id != seance.Id)
         {
@@ -181,6 +182,13 @@ public class SeanceController : Controller
         }
         var cinema = _context.Cinemas.Find(seance.CinemaId);
         seance.Cinema = cinema!;
+
+        var film = _context.Films.Find(seance.FilmId);
+        seance.Film = film!;
+
+        var salle = _context.Salles.Find(seance.SalleId);
+        seance.Salle = salle!;
+
         _context.Update(seance);
         await _context.SaveChangesAsync();
 

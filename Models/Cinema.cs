@@ -26,4 +26,9 @@ public class Cinema
     [Display(Name = "Prix d'une place")]
     [Required(ErrorMessage = "Veuillez entrer un prix valide.")]
     public double PrixPlace { get; set; }
+
+    public List<Salle> Salles { get; set; } = new();
+
+    public List<Seance> Seances { get; set; } = new();
+
 }

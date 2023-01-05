@@ -6,6 +6,8 @@
 
 <h2 class="mb-5">| Ajouter une séance </h2>
 <p class="p-3">Veuillez choisir le cinéma pour lequel vous souhaitez ajouter une séance :</p>
+<p class="font-italic px-3 mb-5">Remarque : Si le cinéma souhaité n'est pas dans la liste, il est nécessaire de <a asp-action="Create" asp-controller="Salle">créer une salle de cinéma.</a></p>
+
 <form asp-controller="Seance" asp-action="Create" method="get">
     <fieldset class="fieldset-style p-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>

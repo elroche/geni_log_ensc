@@ -16,6 +16,8 @@ public class Seance
     public Salle Salle { get; set; } = null!;
 
     public int CinemaId { get; set; }
+
+    [Display(Name = "Cinéma")]
     public Cinema Cinema { get; set; } = null!;
 
     [Required(ErrorMessage = "Veuillez entrer une date valide.")]
