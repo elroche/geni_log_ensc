@@ -20,7 +20,7 @@ public class Seance
     [Display(Name = "Cinéma")]
     public Cinema Cinema { get; set; } = null!;
 
-    [Required(ErrorMessage = "Veuillez entrer une date valide.")]
+    [Required(ErrorMessage = "Veuillez entrer une date et un horaire valide.")]
     public DateTime Date { get; set; }
 
     [Display(Name = "Nombre de place achetées")]

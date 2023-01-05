@@ -34,7 +34,7 @@
                 <label asp-for="Date" class="control-label"></label>
             </div>
             <div class="col-sm-6">
-                <input type="date" asp-for="Date" class="form-control" />
+                <input type="datetime-local" asp-for="Date" asp-format="{0:yyyy-MM-ddTHH:mm}" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
         </div>
