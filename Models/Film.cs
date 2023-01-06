@@ -32,7 +32,7 @@ public class Film
     [Required(ErrorMessage = "Veuillez entrer une date valide.")]
     public DateTime Date { get; set; }
 
-    [Display(Name = "Durée (en minutes)")]
+    [Display(Name = "Durée")]
     [Required(ErrorMessage = "Veuillez entrer une durée (en minutes) valide.")]
     public int Duree { get; set; }
 
