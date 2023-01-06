@@ -3,6 +3,14 @@
 @{
     ViewData["Title"] = "Les films";
 }
+
+@if (@TempData["messageSuccess"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["messageSuccess"]
+    </div>
+}
+
 <h2 class="mb-5">| Les films disponibles</h2>
 <a class="btn btn-dark" asp-controller="Film" asp-action="Create"><i class="bi bi-plus-circle"></i> Ajouter un
     film</a>
@@ -11,7 +19,7 @@
         @foreach (var item in Model)
         {
             <div class="col-xl-4 col-md-3 col-sm-2 my-2">
-                <div class="card" >
+                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom), @Html.DisplayFor(modelItem =>
                         item.Realisateur)</h5>

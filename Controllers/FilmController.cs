@@ -116,7 +116,7 @@ public class FilmController : Controller
         return _context.Films.Any(f => f.Id == id);
     }
 
-        // GET: /Film/Delete/id
+    // GET: /Film/Delete/id
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -140,6 +140,9 @@ public class FilmController : Controller
         var film = await _context.Films.FindAsync(id);
         _context.Films.Remove(film);
         await _context.SaveChangesAsync();
+
+        TempData["messageSuccess"] = "La suppression a bien été effectuée.";
+
         return RedirectToAction(nameof(Index));
     }
 }

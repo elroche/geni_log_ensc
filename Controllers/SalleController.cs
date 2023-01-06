@@ -181,6 +181,9 @@ public class SalleController : Controller
         var salle = await _context.Salles.FindAsync(id);
         _context.Salles.Remove(salle);
         await _context.SaveChangesAsync();
+
+        TempData["messageSuccess"] = "La suppression a bien été effectuée.";
+
         return RedirectToAction(nameof(Index));
     }
 

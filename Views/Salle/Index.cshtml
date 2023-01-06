@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Les salles";
 }
+@if (@TempData["messageSuccess"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["messageSuccess"]
+    </div>
+}
 
 <h2 class="mb-5">| Les salles</h2>
 <a class="btn btn-dark" asp-action="Create"><i class="bi bi-plus-circle"></i> Ajouter une salle</a>
