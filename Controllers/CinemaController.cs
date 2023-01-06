@@ -36,7 +36,7 @@ public class CinemaController : Controller
             .Include(c => c.Seances)
             .Where(c => c.Id == id)
             .SingleOrDefaultAsync();
-            
+
         if (cinema == null)
         {
             return NotFound();
