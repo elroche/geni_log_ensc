@@ -274,7 +274,6 @@ public class SeanceController : Controller
         _context.Update(seance);
         await _context.SaveChangesAsync();
 
-        Console.WriteLine("Coucou");
         TempData["messageSuccess"] = "Vous venez d'acheter un ticket ! A bientôt !";
 
         return RedirectToAction(nameof(Index));
