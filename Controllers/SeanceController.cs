@@ -110,6 +110,10 @@ public class SeanceController : Controller
             return NotFound();
         }
         var cinema = _context.Cinemas.Find(CinemaId);
+        if (cinema == null)
+        {
+            return NotFound();
+        }
         ViewData["cinema"] = cinema.Nom;
 
         var salles = await _context.Salles.OrderBy(c => c.NumeroSalle).Where(s => s.CinemaId == CinemaId).ToListAsync();
@@ -256,6 +260,10 @@ public class SeanceController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var seance = await _context.Seances.FindAsync(id);
+        if (seance == null)
+        {
+            return NotFound();
+        }
         _context.Seances.Remove(seance);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
@@ -273,8 +281,20 @@ public class SeanceController : Controller
         seance.NbPlaceAchete = seance.NbPlaceAchete + 1;
         _context.Update(seance);
         await _context.SaveChangesAsync();
+        var salle = _context.Salles.Find(seance.SalleId);
+        if (salle == null)
+        {
+            return NotFound();
+        }
+        if (seance.NbPlaceAchete < salle.NbPlace)
+        {
+            TempData["messageSuccess"] = "Vous venez d'acheter un ticket ! A bientôt !";
+        }
+        else
+        {
+            TempData["messageError"] = "Désolée, toutes les places ont été vendues.";
 
-        TempData["messageSuccess"] = "Vous venez d'acheter un ticket ! A bientôt !";
+        }
 
         return RedirectToAction(nameof(Index));
     }
