@@ -41,7 +41,7 @@ public class SalleController : Controller
         return View(salle);
     }
 
-    // Récupère toutes les salles du cinéma associé à l'identifiant idCinema du cinéma
+    // Récupère toutes les salles du cinéma associé à l'identifiant id du cinéma
     public async Task<IActionResult> FindSallesCinema(int? id)
     {
         if (id == null)

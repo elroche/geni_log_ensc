@@ -50,7 +50,7 @@ public class SeanceController : Controller
         return View(seance);
     }
 
-    // Récupère la liste des films d'un cinéma associée à l'identifiant idCinema du cinéma
+    // Récupère la liste des films d'un cinéma associée à l'identifiant id du cinéma
     public IActionResult FindFilmsCinema(int? id)
     {
         if (id == null)
@@ -78,7 +78,7 @@ public class SeanceController : Controller
         return View();
     }
 
-    // Récupère la liste des séances d'un film associée à l'identifiant idFilm du film
+    // Récupère la liste des séances d'un film associée à l'identifiant id du film
     public async Task<IActionResult> FindSeancesFilm(int? id)
     {
         if (id == null)

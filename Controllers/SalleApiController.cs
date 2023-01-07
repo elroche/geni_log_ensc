@@ -42,7 +42,7 @@ public class SalleApiController : ControllerBase
     }
 
     // GET: api/SalleApi/GetSallesCinema/id
-    // Récupère toutes les salles du cinéma associé à l'identifiant idCinema du cinéma
+    // Récupère toutes les salles du cinéma associé à l'identifiant id du cinéma
     [HttpGet("GetSallesCinema/{id}")]
     public async Task<ActionResult<IEnumerable<Salle>>> GetSallesCinema(int id)
     {

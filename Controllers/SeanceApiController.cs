@@ -46,7 +46,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi/GetFilms/id
-    // Récupère la liste des films d'un cinéma associée à l'identifiant idCinema du cinéma
+    // Récupère la liste des films d'un cinéma associée à l'identifiant id du cinéma
     [HttpGet("GetFilms/{id}")]
     public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int id)
     {
@@ -66,7 +66,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi/GetSeancesFilm/id
-    // Récupère la liste des séances d'un film associée à l'identifiant idFilm du film
+    // Récupère la liste des séances d'un film associée à l'identifiant id du film
     [HttpGet("GetSeancesFilm/{id}")]
     public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int id)
     {
