@@ -138,6 +138,10 @@ public class FilmController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var film = await _context.Films.FindAsync(id);
+        if (film == null)
+        {
+            return NotFound();
+        }
         _context.Films.Remove(film);
         await _context.SaveChangesAsync();
 

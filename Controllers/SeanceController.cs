@@ -83,11 +83,14 @@ public class SeanceController : Controller
                 .GroupBy(s => s.Film)
                 .Select(s => s.First())
                 .ToList();
-        ViewData["seances"] = seances;
 
         if (seances == null)
         {
             return NotFound();
+        }
+        else
+        {
+            ViewData["seances"] = seances;
         }
 
         return View();

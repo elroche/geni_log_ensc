@@ -179,6 +179,10 @@ public class SalleController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var salle = await _context.Salles.FindAsync(id);
+        if (salle == null)
+        {
+            return NotFound();
+        }
         _context.Salles.Remove(salle);
         await _context.SaveChangesAsync();
 

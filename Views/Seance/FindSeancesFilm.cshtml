@@ -9,8 +9,8 @@
     <div class="row justify-content-start">
         @foreach (var item in Model)
         {
-                <div class="col-sm p-3">
-                    <div class="card" style="width: 18rem;">
+            <div class="col-sm p-3">
+                <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Cinéma : @Html.DisplayFor(modelItem => item.Cinema.Nom)</h5>
                         <hr>
@@ -23,40 +23,9 @@
     </div>
 </div>
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Salle.Cinema)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salle.Cinema.Nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-</div>*@
-
 <div class="mt-5">
     <a class="text-decoration-none" asp-controller="Film" asp-action="Index"><i
             class="bi bi-arrow-left-circle-fill"></i> Retour à la
-        la page précédente</a>
+        page précédente</a>
 
 </div>
