@@ -15,11 +15,13 @@ public class FilmController : Controller
         _context = context;
     }
 
+    // Recupère tous les films
     public async Task<IActionResult> Index()
     {
         return View(await _context.Films.ToListAsync());
     }
 
+    // Récupère le cinéma associé à l'identifiant id
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -45,8 +47,7 @@ public class FilmController : Controller
     }
 
     // POST: Film/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    // Permet de créer un film
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Film film)
@@ -77,8 +78,7 @@ public class FilmController : Controller
     }
 
     // POST: Film/Edit/id
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    // Permet de modifier le film associé à l'ientifiant id
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Realisateur,Resume,Genre,Date,Duree")] Film film)
@@ -111,6 +111,7 @@ public class FilmController : Controller
         return View(film);
     }
 
+    // Permet de vérifier l'existaence du film associé à l'identifiant id
     private bool FilmExist(int id)
     {
         return _context.Films.Any(f => f.Id == id);
@@ -132,6 +133,7 @@ public class FilmController : Controller
         return View(film);
     }
 
+    // Permet de supprimer le film associé à l'identifiant id
     // POST: /Film/Delete/id
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]

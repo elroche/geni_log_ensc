@@ -16,12 +16,14 @@ public class FilmApiController : ControllerBase
     }
 
     // GET: api/FilmApi
+    // Recupère tous les films
     public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
     {
         return await _context.Films.OrderBy(f => f.Nom).ToListAsync();
     }
 
     // GET: api/FilmApi/
+    // Récupère le cinéma associé à l'identifiant id
     [HttpGet("{id}")]
     public async Task<ActionResult<Film>> GetFilm(int id)
     {
@@ -35,7 +37,7 @@ public class FilmApiController : ControllerBase
     }
 
     // POST: api/FilmApi
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet de créer un film
     [HttpPost]
     public async Task<ActionResult<Film>> PostFilm(Film film)
     {
@@ -46,7 +48,7 @@ public class FilmApiController : ControllerBase
     }
 
     // PUT: api/FilmApi/
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet de modifier le film associé à l'ientifiant id
     [HttpPut("{id}")]
     public async Task<IActionResult> PutFilm(int id, Film film)
     {
@@ -68,13 +70,14 @@ public class FilmApiController : ControllerBase
         return NoContent();
     }
 
-    // Returns true if a film with specified id already exists
+    // Permet de vérifier l'existaence du film associé à l'identifiant id
     private bool FilmExist(int id)
     {
         return _context.Films.Any(f => f.Id == id);
     }
 
     // DELETE: api/FilmApi/
+    // Permet de supprimer le film associé à l'identifiant id
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteFilm(int id)
     {

@@ -16,6 +16,7 @@ public class CinemaController : Controller
         _context = context;
     }
 
+    //Récupère tous les cinémas 
     public async Task<IActionResult> Index()
     {
         var cinemas = await _context.Cinemas
@@ -25,6 +26,7 @@ public class CinemaController : Controller
         return View(cinemas);
     }
 
+    //Récupère le cinéma avec l'identifiant associé
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -53,7 +55,7 @@ public class CinemaController : Controller
         return View();
     }
 
-    //Afficher la liste de tous les cinémas d’une ville
+    //Récupère tous les cinémas en fonction d'une ville
     public IActionResult ResultSearch(String ville)
     {
         if (ville == null)
@@ -73,14 +75,13 @@ public class CinemaController : Controller
 
 
     // GET: Cinema/Create
+    // Permet d'ajouter un cinéma
     public IActionResult Create()
     {
         return View();
     }
 
     // POST: Cinema/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Nom,Adresse,CodePostal,Ville,Responsable,PrixPlace")] Cinema cinema)
@@ -95,6 +96,7 @@ public class CinemaController : Controller
     }
 
     // GET: Cinema/Edit/id
+    // Permet de modifier le cinéma associé à l'identifiant id
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -111,8 +113,6 @@ public class CinemaController : Controller
     }
 
     // POST: Cinema/Edit/id
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Adresse,CodePostal,Ville,Responsable,PrixPlace")] Cinema cinema)
@@ -145,7 +145,7 @@ public class CinemaController : Controller
         return View(cinema);
     }
 
-
+    // Verifie l'existence du cinéma associé à l'identifiant id
     private bool CinemaExist(int id)
     {
         return _context.Cinemas.Any(c => c.Id == id);

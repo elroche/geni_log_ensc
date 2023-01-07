@@ -17,12 +17,14 @@ public class SalleController : Controller
         _context = context;
     }
 
+    // Récupère la liste des salles
     public async Task<IActionResult> Index()
     {
         var salles = await _context.Salles.Include(s => s.Cinema).OrderBy(s => s.Id).ToListAsync();
         return View(salles);
     }
 
+    // Récupère la salle associé à l'identifiant id
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -39,15 +41,16 @@ public class SalleController : Controller
         return View(salle);
     }
 
-    public async Task<IActionResult> FindSallesCinema(int? id)
+    // Récupère toutes les salles du cinéma associé à l'identifiant idCinema du cinéma
+    public async Task<IActionResult> FindSallesCinema(int? idCinema)
     {
-        if (id == null)
+        if (idCinema == null)
         {
             return NotFound();
         }
         var salles = await _context.Salles
             .Include(s => s.Cinema)
-            .Where(s => s.Cinema.Id == id)
+            .Where(s => s.CinemaId == idCinema)
             .ToListAsync();
 
         if (salles == null)
@@ -67,8 +70,7 @@ public class SalleController : Controller
     }
 
     // POST: Salle/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    // Permet d'ajouter une salle
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,CinemaId,NbPlace,NumeroSalle")] SalleDTO salleDTO)
@@ -113,6 +115,7 @@ public class SalleController : Controller
     }
 
     // POST: Salle/Edit/id
+    // Permet de modifier la salle associée à l'identifiant id
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id, CinemaId, NbPlace, NumeroSalle")] SalleDTO salleDTO)
@@ -152,6 +155,7 @@ public class SalleController : Controller
         return View(salle);
     }
 
+    // Permet de vérifier l'existence de la salle associée à l'identifiant id
     private bool SalleExist(int id)
     {
         return _context.Salles.Any(s => s.Id == id);
@@ -174,6 +178,7 @@ public class SalleController : Controller
     }
 
     // POST: /Salle/Delete/id
+    // Permet de supprimer la salle associée à l'identifiant id
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)

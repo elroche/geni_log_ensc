@@ -22,7 +22,7 @@ public class CinemaApiController : ControllerBase
         return await _context.Cinemas.OrderBy(c => c.Nom).ToListAsync();
     }
 
-    //Récupère le cinéma avec un identifiant
+    //Récupère le cinéma avec l'identifiant associé
     [HttpGet("{id}/GetCinema")]
     public async Task<ActionResult<Cinema>> GetCinema(int id)
     {
@@ -49,7 +49,7 @@ public class CinemaApiController : ControllerBase
     }
 
     // POST: api/CinemaApi
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet d'ajouter un cinéma
     [HttpPost]
     public async Task<ActionResult<Cinema>> PostCinema(Cinema cinema)
     {
@@ -60,7 +60,7 @@ public class CinemaApiController : ControllerBase
     }
 
     // PUT: api/CinemaApi/
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet de modifier le cinéma associé à l'identifiant id
     [HttpPut("{id}")]
     public async Task<IActionResult> PutCinema(int id, Cinema cinema)
     {
@@ -83,6 +83,7 @@ public class CinemaApiController : ControllerBase
     }
 
     // Returns true if a cinema with specified id already exists
+    // Verifie l'existence du cinéma associé à l'identifiant id
     private bool CinemaExist(int id)
     {
         return _context.Cinemas.Any(c => c.Id == id);

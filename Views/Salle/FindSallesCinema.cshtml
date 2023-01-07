@@ -5,41 +5,41 @@
 }
 <div class="text-center">
 
-    <h1>Salles du cinéma</h1>
+    <h2 class="mb-5">|Salles du cinéma </h2>
 
-    <table class="table">
+    @*<table class="table">
         <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NumeroSalle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NbPlace)
-                </th>
-                <th></th>
-            </tr>
+        <tr>
+        <th>
+        @Html.DisplayNameFor(model => model.NumeroSalle)
+        </th>
+        <th>
+        @Html.DisplayNameFor(model => model.NbPlace)
+        </th>
+        <th></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NumeroSalle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NbPlace)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Model)
+        {
+        <tr>
+        <td>
+        @Html.DisplayFor(modelItem => item.NumeroSalle)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.NbPlace)
+        </td>
+        <td>
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+        </td>
+        </tr>
+        }
         </tbody>
-    </table>
-    <div class="mt-5">
+        </table>
+        <div class="mt-5">
         <a class="text-decoration-none" asp-controller="Film" asp-action="Index"><i
-                class="bi bi-arrow-left-circle-fill"></i> Retour à la
-            page précédente</a>
+        class="bi bi-arrow-left-circle-fill"></i> Retour à la
+        page précédente</a>
 
-    </div>
+        </div>*@
 </div>

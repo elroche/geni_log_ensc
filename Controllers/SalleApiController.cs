@@ -16,6 +16,7 @@ public class SalleApiController : ControllerBase
     }
 
     // GET: api/SalleApi
+    // Récupère la liste des salles 
     public async Task<ActionResult<IEnumerable<Salle>>> GetSalles()
     {
         return await _context.Salles
@@ -25,7 +26,8 @@ public class SalleApiController : ControllerBase
     }
 
     // GET: api/SalleApi/id
-    [HttpGet("{id}")]
+    // Récupère la salle associé à l'identifiant id
+    [HttpGet("GetSalle/{id}")]
     public async Task<ActionResult<Salle>> GetSalle(int id)
     {
         var salle = await _context.Salles
@@ -39,8 +41,24 @@ public class SalleApiController : ControllerBase
         return salle;
     }
 
+    // GET: api/SalleApi/GetSallesCinema/id
+    // Récupère toutes les salles du cinéma associé à l'identifiant idCinema du cinéma
+    [HttpGet("GetSallesCinema/{id}")]
+    public async Task<ActionResult<IEnumerable<Salle>>> GetSallesCinema(int idCinema)
+    {
+        var salles = await _context.Salles
+             .Include(s => s.Cinema)
+             .Where(s => s.CinemaId == idCinema)
+             .ToListAsync();
+        if (salles == null)
+        {
+            return NotFound();
+        }
+        return salles;
+    }
+
     // POST: api/SalleApi
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet d'ajouter une salle
     [HttpPost]
     public async Task<ActionResult<Salle>> PostSalle(SalleDTO salleDTO)
     {
@@ -56,7 +74,7 @@ public class SalleApiController : ControllerBase
     }
 
     // PUT: api/SalleApi/
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet de modifier la salle associée à l'identifiant id
     [HttpPut("{id}")]
     public async Task<IActionResult> PutSalle(int id, SalleDTO salleDTO)
     {
@@ -83,44 +101,15 @@ public class SalleApiController : ControllerBase
         return NoContent();
     }
 
-    // Returns true if a film with specified id already exists
+    // Permet de vérifier l'existence de la salle associée à l'identifiant id
     private bool SalleExist(int id)
     {
         return _context.Salles.Any(s => s.Id == id);
     }
 
-    /*
-    // PUT: api/SalleApi/id
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutSalle(int id, Salle salle)
-    {
-        if (id != salle.Id)
-            return BadRequest();
-
-        _context.Entry(salle).State = EntityState.Modified;
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!SalleExists(id))
-                return NotFound();
-            else
-                throw;
-        }
-        return NoContent();
-    }
-
-    // Returns true if a salle with specified id already exists
-    private bool SalleExists(int id)
-    {
-        return _context.Salle.Any(s => s.Id == id);
-    }
-    */
 
     // DELETE: api/SalleApi/
+    // Permet de supprimer la salle associée à l'identifiant id
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSalle(int id)
     {

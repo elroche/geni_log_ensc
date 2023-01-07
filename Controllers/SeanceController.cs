@@ -17,6 +17,7 @@ public class SeanceController : Controller
         _context = context;
     }
 
+    // Récupère la liste des séances
     public async Task<IActionResult> Index()
     {
         var seances = await _context.Seances
@@ -28,6 +29,7 @@ public class SeanceController : Controller
         return View(seances);
     }
 
+    // Récupère la séance associée à l'identifiant id
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -48,27 +50,7 @@ public class SeanceController : Controller
         return View(seance);
     }
 
-    public async Task<IActionResult> FindSeancesFilm(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-        var seances = await _context.Seances
-            .Include(s => s.Film)
-            .Include(s => s.Salle)
-            .Include(s => s.Cinema)
-            .Where(s => s.Film.Id == id)
-            .ToListAsync();
-
-        if (seances == null)
-        {
-            return NotFound();
-        }
-
-        return View(seances);
-    }
-
+    // Récupère la liste des films d'un cinéma associée à l'identifiant idCinema du cinéma
     public IActionResult FindFilmsCinema(int? id)
     {
         if (id == null)
@@ -96,8 +78,30 @@ public class SeanceController : Controller
         return View();
     }
 
+    // Récupère la liste des séances d'un film associée à l'identifiant idFilm du film
+    public async Task<IActionResult> FindSeancesFilm(int? idFilm)
+    {
+        if (idFilm == null)
+        {
+            return NotFound();
+        }
+        var seances = await _context.Seances
+            .Include(s => s.Film)
+            .Include(s => s.Salle)
+            .Include(s => s.Cinema)
+            .Where(s => s.FilmId == idFilm)
+            .ToListAsync();
 
-    // GET: Seance/Create
+        if (seances == null)
+        {
+            return NotFound();
+        }
+
+        return View(seances);
+    }
+
+
+    // GET: Seance/CreateInitial
     public async Task<IActionResult> CreateInitial()
     {
         var cinemas = await _context.Cinemas.OrderBy(c => c.Nom).Where(c => c.Salles.Count() >= 1).ToListAsync();
@@ -106,6 +110,7 @@ public class SeanceController : Controller
         return View();
     }
 
+    // GET: Seance/Create
     public async Task<IActionResult> Create(int? CinemaId)
     {
         if (CinemaId == null)
@@ -128,6 +133,8 @@ public class SeanceController : Controller
         return View();
     }
 
+    // POST: Seance/Create
+    // Permet d'ajouter une séance
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,FilmId, SalleId,CinemaId, Date")] SeanceDTO seanceDTO)
@@ -188,6 +195,7 @@ public class SeanceController : Controller
     }
 
     // POST: Seance/Edit/id
+    // Permet de modifier la séance associée à l'identifiant id
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int? id, [Bind("Id, FilmId, SalleId, CinemaId, Date, NbPlaceAchete")] SeanceDTO seanceDTO)
@@ -235,6 +243,7 @@ public class SeanceController : Controller
         return View(seance);
     }
 
+    // Permet de vérifier l'existence de la séance associée à l'identifiant id
     private bool SeanceExist(int id)
     {
         return _context.Seances.Any(s => s.Id == id);
@@ -258,6 +267,7 @@ public class SeanceController : Controller
 
 
     // POST: /Seance/Delete/id
+    // Permet de supprimer la séance associée à l'identifiant id
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
@@ -272,6 +282,7 @@ public class SeanceController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    // Permet d'acheter un ticket pour la séance envérifiant si elle est complète, et si tel n'est pas le cas elle mofidie le nombre de place disponible
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> BuyTicket(int id)

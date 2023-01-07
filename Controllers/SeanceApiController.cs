@@ -16,6 +16,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi
+    // Récupère la liste des séances
     public async Task<ActionResult<IEnumerable<Seance>>> GetSeances()
     {
         return await _context.Seances
@@ -27,6 +28,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi/GetSeance/id
+    // Récupère la séance associée à l'identifiant id
     [HttpGet("GetSeance/{id}")]
     public async Task<ActionResult<Seance>> GetSeance(int idSeance)
     {
@@ -44,6 +46,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi/GetFilms/id
+    // Récupère la liste des films d'un cinéma associée à l'identifiant idCinema du cinéma
     [HttpGet("GetFilms/{id}")]
     public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int idCinema)
     {
@@ -63,6 +66,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // GET: api/SeanceApi/GetSeancesFilm/id
+    // Récupère la liste des séances d'un film associée à l'identifiant idFilm du film
     [HttpGet("GetSeancesFilm/{id}")]
     public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int idFilm)
     {
@@ -80,7 +84,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // POST: api/SeanceApi
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet d'ajouter une séance
     [HttpPost]
     public async Task<ActionResult<Seance>> PostSeance(SeanceDTO seanceDTO)
     {
@@ -102,7 +106,7 @@ public class SeanceApiController : ControllerBase
     }
 
     // PUT: api/SeanceApi/
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    // Permet de modifier la séance associée à l'identifiant id
     [HttpPut("{id}")]
     public async Task<IActionResult> PutSeance(int id, SeanceDTO seanceDTO)
     {
@@ -135,7 +139,8 @@ public class SeanceApiController : ControllerBase
         return NoContent();
     }
 
-    // Returns true if a film with specified id already exists
+
+    // Permet de vérifier l'existence de la séance associée à l'identifiant id
     private bool SeanceExist(int id)
     {
         return _context.Seances.Any(s => s.Id == id);
@@ -143,6 +148,7 @@ public class SeanceApiController : ControllerBase
 
 
     // DELETE: api/SeanceApi/
+    // Permet de supprimer la séance associée à l'identifiant id
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteSeance(int id)
     {
