@@ -22,7 +22,7 @@ public class SeanceController : Controller
         var seances = await _context.Seances
             .Include(s => s.Film)
             .Include(s => s.Salle)
-            .Include(s => s.Salle.Cinema)
+            .Include(s => s.Cinema)
             .OrderBy(s => s.Id)
             .ToListAsync();
         return View(seances);
@@ -57,7 +57,7 @@ public class SeanceController : Controller
         var seances = await _context.Seances
             .Include(s => s.Film)
             .Include(s => s.Salle)
-            .Include(s => s.Salle.Cinema)
+            .Include(s => s.Cinema)
             .Where(s => s.Film.Id == id)
             .ToListAsync();
 

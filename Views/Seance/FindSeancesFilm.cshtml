@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Cinéma : @Html.DisplayFor(modelItem => item.Cinema.Nom)</h5>
                         <hr>
-                        <p class="card-text text-truncate-2">@Html.DisplayFor(modelItem => item.Date)</p>
+                        <p class="card-text text-truncate-2">Date de la séance : @Html.DisplayFor(modelItem => item.Date)</p>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
                     </div>
                 </div>
