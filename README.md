@@ -1,6 +1,8 @@
 <h2 align="center">Projet Génie logiciel - Gestion de cinémas.</h2>
 <br/>
-
+<p align="center">
+  <img src="Diagramme_Gantt.png" width="580" alt="diagramme">
+</p>
 
 ## A propos du projet 
 Ce projet a été réalisé à l'aide des technologies suivantes : 
