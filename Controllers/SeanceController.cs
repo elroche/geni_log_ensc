@@ -79,9 +79,9 @@ public class SeanceController : Controller
     }
 
     // Récupère la liste des séances d'un film associée à l'identifiant idFilm du film
-    public async Task<IActionResult> FindSeancesFilm(int? idFilm)
+    public async Task<IActionResult> FindSeancesFilm(int? id)
     {
-        if (idFilm == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -89,7 +89,7 @@ public class SeanceController : Controller
             .Include(s => s.Film)
             .Include(s => s.Salle)
             .Include(s => s.Cinema)
-            .Where(s => s.FilmId == idFilm)
+            .Where(s => s.FilmId == id)
             .ToListAsync();
 
         if (seances == null)
@@ -111,20 +111,20 @@ public class SeanceController : Controller
     }
 
     // GET: Seance/Create
-    public async Task<IActionResult> Create(int? CinemaId)
+    public async Task<IActionResult> Create(int? id)
     {
-        if (CinemaId == null)
+        if (id == null)
         {
             return NotFound();
         }
-        var cinema = _context.Cinemas.Find(CinemaId);
+        var cinema = _context.Cinemas.Find(id);
         if (cinema == null)
         {
             return NotFound();
         }
         ViewData["cinema"] = cinema.Nom;
 
-        var salles = await _context.Salles.OrderBy(c => c.NumeroSalle).Where(s => s.CinemaId == CinemaId).ToListAsync();
+        var salles = await _context.Salles.OrderBy(c => c.NumeroSalle).Where(s => s.CinemaId == id).ToListAsync();
         ViewData["SalleId"] = new SelectList(salles, "Id", "NumeroSalle");
 
         var films = await _context.Films.OrderBy(c => c.Nom).ToListAsync();

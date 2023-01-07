@@ -44,11 +44,11 @@ public class SalleApiController : ControllerBase
     // GET: api/SalleApi/GetSallesCinema/id
     // Récupère toutes les salles du cinéma associé à l'identifiant idCinema du cinéma
     [HttpGet("GetSallesCinema/{id}")]
-    public async Task<ActionResult<IEnumerable<Salle>>> GetSallesCinema(int idCinema)
+    public async Task<ActionResult<IEnumerable<Salle>>> GetSallesCinema(int id)
     {
         var salles = await _context.Salles
              .Include(s => s.Cinema)
-             .Where(s => s.CinemaId == idCinema)
+             .Where(s => s.CinemaId == id)
              .ToListAsync();
         if (salles == null)
         {

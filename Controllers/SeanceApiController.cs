@@ -30,13 +30,13 @@ public class SeanceApiController : ControllerBase
     // GET: api/SeanceApi/GetSeance/id
     // Récupère la séance associée à l'identifiant id
     [HttpGet("GetSeance/{id}")]
-    public async Task<ActionResult<Seance>> GetSeance(int idSeance)
+    public async Task<ActionResult<Seance>> GetSeance(int id)
     {
         var seance = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.Id == idSeance)
+                .Where(s => s.Id == id)
                 .SingleOrDefaultAsync();
         if (seance == null)
         {
@@ -48,13 +48,13 @@ public class SeanceApiController : ControllerBase
     // GET: api/SeanceApi/GetFilms/id
     // Récupère la liste des films d'un cinéma associée à l'identifiant idCinema du cinéma
     [HttpGet("GetFilms/{id}")]
-    public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int idCinema)
+    public async Task<ActionResult<IEnumerable<Seance>>> GetFilms(int id)
     {
         var seances = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.CinemaId == idCinema)
+                .Where(s => s.CinemaId == id)
                 .GroupBy(s => s.Film)
                 .Select(s => s.First())
                 .ToListAsync();
@@ -68,13 +68,13 @@ public class SeanceApiController : ControllerBase
     // GET: api/SeanceApi/GetSeancesFilm/id
     // Récupère la liste des séances d'un film associée à l'identifiant idFilm du film
     [HttpGet("GetSeancesFilm/{id}")]
-    public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int idFilm)
+    public async Task<ActionResult<IEnumerable<Seance>>> GetSeancesFilm(int id)
     {
         var seances = await _context.Seances
                 .Include(s => s.Film)
                 .Include(s => s.Salle)
                 .Include(s => s.Cinema)
-                .Where(s => s.Film.Id == idFilm)
+                .Where(s => s.Film.Id == id)
                 .ToListAsync();
         if (seances == null)
         {

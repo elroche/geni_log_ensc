@@ -42,15 +42,15 @@ public class SalleController : Controller
     }
 
     // Récupère toutes les salles du cinéma associé à l'identifiant idCinema du cinéma
-    public async Task<IActionResult> FindSallesCinema(int? idCinema)
+    public async Task<IActionResult> FindSallesCinema(int? id)
     {
-        if (idCinema == null)
+        if (id == null)
         {
             return NotFound();
         }
         var salles = await _context.Salles
             .Include(s => s.Cinema)
-            .Where(s => s.CinemaId == idCinema)
+            .Where(s => s.CinemaId == id)
             .ToListAsync();
 
         if (salles == null)
