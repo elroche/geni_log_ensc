@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetelearebeccagr3.Migrations
 {
     [DbContext(typeof(CinemaContext))]
-    [Migration("20230105110902_UpdateDb")]
-    partial class UpdateDb
+    [Migration("20230108165038_finalMigration")]
+    partial class finalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,8 +62,8 @@ namespace projetelearebeccagr3.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Duree")
-                        .HasColumnType("REAL");
+                    b.Property<int>("Duree")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Genre")
                         .HasColumnType("INTEGER");

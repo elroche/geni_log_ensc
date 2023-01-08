@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace projetelearebeccagr3.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class finalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,12 +36,11 @@ namespace projetelearebeccagr3.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nom = table.Column<string>(type: "TEXT", nullable: false),
-                    Realisateur = table.Column<string>(type: "TEXT", nullable: false),
+                    Realisateur = table.Column<string>(type: "TEXT", nullable: true),
                     Resume = table.Column<string>(type: "TEXT", nullable: false),
                     Genre = table.Column<int>(type: "INTEGER", nullable: true),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Duree = table.Column<double>(type: "REAL", nullable: false),
-                    Statut = table.Column<int>(type: "INTEGER", nullable: false)
+                    Duree = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,12 +76,19 @@ namespace projetelearebeccagr3.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     FilmId = table.Column<int>(type: "INTEGER", nullable: false),
                     SalleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CinemaId = table.Column<int>(type: "INTEGER", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     NbPlaceAchete = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Seances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seances_Cinemas_CinemaId",
+                        column: x => x.CinemaId,
+                        principalTable: "Cinemas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Seances_Films_FilmId",
                         column: x => x.FilmId,
@@ -100,6 +106,11 @@ namespace projetelearebeccagr3.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Salles_CinemaId",
                 table: "Salles",
+                column: "CinemaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seances_CinemaId",
+                table: "Seances",
                 column: "CinemaId");
 
             migrationBuilder.CreateIndex(

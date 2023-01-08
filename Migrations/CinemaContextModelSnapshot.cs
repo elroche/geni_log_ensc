@@ -59,8 +59,8 @@ namespace projetelearebeccagr3.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Duree")
-                        .HasColumnType("REAL");
+                    b.Property<int>("Duree")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Genre")
                         .HasColumnType("INTEGER");
