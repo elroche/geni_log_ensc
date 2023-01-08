@@ -1,0 +1,41 @@
+@model IEnumerable<GestionCinema.Models.Seance>
+
+@{
+    ViewData["Title"] = "Les Séances";
+}
+<h2 class="mb-5">|Les séances</h2>
+@if (@TempData["messageSuccess"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["messageSuccess"]
+    </div>
+}
+@if (@TempData["messageError"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["messageError"]
+    </div>
+}
+<a class="btn btn-dark" asp-action="CreateInitial"><i class="bi bi-plus-circle"></i> Ajouter une nouvelle séance</a>
+<div class="card-group mt-5">
+    <div class="row justify-content-start">
+        @foreach (var item in Model)
+        {
+            <div class="col-xl-4 col-md-4 col-sm-2 my-1">
+                <div class="card">
+                    <img class="card-img-top" src="/img/bobine.jpg" alt="Bobine image">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Film.Nom), @Html.DisplayFor(modelItem =>
+                        item.Film.Date) </h5>
+                        <p class="card-text text-truncate-2">@Html.DisplayNameFor(model => model.Salle.Cinema) :
+                            @Html.DisplayFor(modelItem => item.Cinema.Nom)
+                            <br>@Html.DisplayFor(modelItem =>
+                        item.Film.Resume).
+                        </p>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

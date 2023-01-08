@@ -1,0 +1,45 @@
+@model GestionCinema.Models.Salle
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Détails de la salle @Html.DisplayFor(model => model.NumeroSalle) du cinéma @Html.DisplayFor(model =>
+    model.Cinema.Nom)</h1>
+
+<div>
+    <hr />
+    <fieldset class="fieldset-style p-3">
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Cinema)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Cinema.Nom)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.NumeroSalle)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.NumeroSalle)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.NbPlace)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.NbPlace)
+            </dd>
+        </dl>
+    </fieldset>
+</div>
+<div class="text-center mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-dark"><i class="bi bi-pencil-fill"></i> Modifier</a>
+</div>
+<div class="text-center mt-3">
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
+        Supprimer</a>
+</div>
+<div class="mt-5">
+    <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la page
+        précédente</a>
+</div>

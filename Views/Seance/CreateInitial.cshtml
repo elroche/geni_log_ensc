@@ -1,0 +1,32 @@
+@model GestionCinema.Models.Seance
+
+@{
+    ViewData["Title"] = "Ajouter une séance";
+}
+
+<h2 class="mb-5">| Ajouter une séance </h2>
+<p class="p-3">Veuillez choisir le cinéma pour lequel vous souhaitez ajouter une séance :</p>
+<p class="font-italic px-3 mb-5">Remarque : Si le cinéma souhaité n'est pas dans la liste, il est nécessaire de <a asp-action="Create" asp-controller="Salle">créer une salle de cinéma.</a></p>
+
+<form asp-controller="Seance" asp-action="Create" method="get">
+    <fieldset class="fieldset-style p-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row px-4 py-2">
+            <div class="col-sm-4">
+                <label asp-for="Cinema" class="control-label"></label>
+            </div>
+            <div class="col-sm-6">
+                <select asp-for="CinemaId" class="form-control" asp-items="ViewBag.CinemaId"></select>
+                <span asp-validation-for="CinemaId" class="text-danger"></span>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group text-center m-4">
+        <input type="submit" value="Suivant" class="btn btn-primary" />
+    </div>
+</form>
+
+<div class="mt-4">
+    <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la
+        page précédente</a>
+</div>

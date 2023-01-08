@@ -1,0 +1,29 @@
+@model IEnumerable<GestionCinema.Models.Cinema>
+
+@{
+    ViewData["Title"] = "Recherche";
+}
+<h2 class="mb-5">| Recherche de cinémas en fonction de la ville</h2>
+
+<div class="context">
+    <form asp-controller="Cinema" asp-action="ResultSearch" method="get">
+        <fieldset class="fieldset-style p-3">
+            <div class="form-group text-center">
+                <p class="px-2">Je souhaite voir les cinémas de : </p>
+                <select class="form-select px-5 py-1" name="ville">
+                    @foreach (var ville in (IEnumerable<Cinema>)ViewData["villes"])
+                    {
+                        <option value="@ville.Ville">@ville.Ville</option>
+                    }
+                </select>
+            </div>
+        </fieldset>
+        <div class="form-group text-center m-4">
+            <input type="submit" value="Rechercher" class="btn btn-primary" />
+        </div>
+    </form>
+    <div class="mt-5">
+        <a class="text-decoration-none mt-5" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la
+            la page précédente</a>
+    </div>
+</div>

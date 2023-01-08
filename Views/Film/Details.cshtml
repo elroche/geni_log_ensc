@@ -1,0 +1,65 @@
+@using System;
+@model GestionCinema.Models.Film
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="mb-5">| Détails du film @Html.DisplayFor(model => model.Nom)</h2>
+
+<fieldset class="fieldset-style p-3">
+    <dl class="row justify-content-around px-4">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Realisateur)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Realisateur)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Resume)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Resume)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Duree)
+        </dt>
+        <dd class="col-sm-8">
+            @Model.Convert(Model.Duree)
+        </dd>
+    </dl>
+</fieldset>
+<div class="text-center mt-3">
+    <a asp-area="" asp-controller="Seance" asp-action="FindSeancesFilm" asp-route-id="@Model.Id"
+        class="btn btn-primary">Voir les séances</a>
+</div>
+<div class="text-center mt-3">
+    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-fill"></i>
+        Modifier</a>
+</div>
+<div class="text-center mt-3">
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
+        Supprimer</a>
+</div>
+<div class="mt-5">
+    <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à
+        la page précédente</a>
+</div>

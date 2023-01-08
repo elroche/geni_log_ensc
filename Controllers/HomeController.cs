@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using projet_elea_rebecca_gr3.Models;
+using GestionCinema.Models;
 
-namespace projet_elea_rebecca_gr3.Controllers;
+namespace GestionCinema.Controllers;
 
 public class HomeController : Controller
 {
@@ -14,11 +14,6 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
     {
         return View();
     }

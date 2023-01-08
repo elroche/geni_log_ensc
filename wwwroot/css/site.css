@@ -1,18 +1,47 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+.carousel-inner img {
+    width: auto;
+    height: 600px;
+    opacity: 0.8;
+    border-radius: 15px;
+}
+
+.carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: initial;
+    background-color: rgba(172, 172, 172, 0.42);
+    opacity: 0.9;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.fieldset-style {
+    border-radius: 20px;
+    border: 1px solid rgb(226, 226, 226);
+    width: 70%;
+    margin: auto;
+    background-color: rgb(237, 234, 234);
+}
+
+.text-truncate-2 {
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }

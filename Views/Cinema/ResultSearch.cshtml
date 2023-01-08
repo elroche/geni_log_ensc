@@ -1,0 +1,31 @@
+@model IEnumerable<GestionCinema.Models.Cinema>
+
+@{
+    ViewData["Title"] = "Résultat de la recherche";
+}
+<h2 class="mb-5">| Résultat de la recherche</h2>
+
+    <div class="context">
+
+        <div class="row justify-content-start mt-2">
+            @foreach (var item in Model)
+            {
+                <div class="col-3 p-2">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="/img/cinema.jpg" alt="Cinema image">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nom)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Adresse), @Html.DisplayFor(modelItem =>
+                            item.CodePostal) @Html.DisplayFor(modelItem => item.Ville).</p>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="mt-4">
+            <a class="text-decoration-none" asp-action="SearchCinemas"><i class="bi bi-arrow-left-circle-fill"></i>
+                Retour à la
+                la page précédente</a>
+        </div>
+    </div>
