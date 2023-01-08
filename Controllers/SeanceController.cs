@@ -70,12 +70,8 @@ public class SeanceController : Controller
         {
             return NotFound();
         }
-        else
-        {
-            ViewData["seances"] = seances;
-        }
 
-        return View();
+        return View(seances);
     }
 
     // Récupère la liste des séances d'un film associée à l'identifiant id du film
