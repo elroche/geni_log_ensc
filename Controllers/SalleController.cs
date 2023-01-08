@@ -18,9 +18,30 @@ public class SalleController : Controller
     }
 
     // Récupère la liste des salles
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        var salles = await _context.Salles.Include(s => s.Cinema).OrderBy(s => s.Id).ToListAsync();
+        var cinemas = _context.Cinemas.OrderBy(c => c.Nom).ToList();
+        ViewData["cinemas"] = cinemas;
+        var salles = _context.Salles.Include(s => s.Cinema).OrderBy(s => s.Id).ToList();
+        return View(salles);
+    }
+
+    [HttpPost("{id}")]
+    public async Task<IActionResult> Index(int id)
+    {
+        var cinemas = _context.Cinemas.OrderBy(c => c.Nom).ToList();
+        ViewData["cinemas"] = cinemas;
+        
+        var salles = await _context.Salles
+           .Include(s => s.Cinema)
+           .Where(s => s.CinemaId == id)
+           .ToListAsync();
+
+        if (salles == null)
+        {
+            return NotFound();
+        }
+
         return View(salles);
     }
 

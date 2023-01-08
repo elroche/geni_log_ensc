@@ -17,7 +17,7 @@ public class Salle
     [Required(ErrorMessage = "Veuillez entrer un nombre de place valide.")]
     public int NbPlace { get; set; }
 
-    [Display(Name = "Numero de salle")]
+    [Display(Name = "Numéro de salle")]
     [Required(ErrorMessage = "Veuillez entrer un numéro de salle valide.")]
     public int NumeroSalle { get; set; }
 

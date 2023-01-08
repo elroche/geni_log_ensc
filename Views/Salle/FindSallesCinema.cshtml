@@ -3,9 +3,7 @@
 @{
     ViewData["Title"] = "Rechercher les salles d'un cinéma";
 }
-<div class="text-center">
-
-    <h2 class="mb-5">|Salles du cinéma </h2>
+<h2 class="mb-5">|Salles du cinéma </h2>
 
 <div class="container pt-4">
     <div class="row justify-content-start">
@@ -16,7 +14,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Salle: @Html.DisplayFor(modelItem => item.NumeroSalle)</h5>
                         <hr>
-                        <p class="card-text text-truncate-2">Nombre de place : @Html.DisplayFor(modelItem => item.NbPlace)</p>
+                        <p class="card-text text-truncate-2">Nombre de place : @Html.DisplayFor(modelItem => item.NbPlace)
+                        </p>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Plus d'info</a>
                     </div>
                 </div>

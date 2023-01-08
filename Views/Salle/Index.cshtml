@@ -12,9 +12,22 @@
 
 <h2 class="mb-5">| Les salles</h2>
 <a class="btn btn-dark" asp-action="Create"><i class="bi bi-plus-circle"></i> Ajouter une salle</a>
+<div class="container pt-4">
+    <form asp-controller="Salle" asp-action="Index">
+        <p> Rechercher par cinéma :
+            <select class="px-5 py-1" name="id">
+                @foreach (var cinema in (IEnumerable<Cinema>)ViewData["cinemas"])
+                {
+                    <option value="@cinema.Id">@cinema.Nom</option>
+                }
+            </select>
+            <input type="submit" class="btn btn-dark" value="Rechercher" />
+        </p>
+    </form>
+</div>
 
 <div class="container pt-4">
-    <div class="row justify-content-start">
+    <div class="row justify-content">
         @foreach (var item in Model)
         {
             <div class="col-sm p-3">

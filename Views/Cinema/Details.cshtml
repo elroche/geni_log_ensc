@@ -4,7 +4,7 @@
     ViewData["Title"] = "Detail du cinéma";
 }
 
-<h2 class="mb-5">| Details du cinéma @Html.DisplayFor(model => model.Nom)</h2>
+<h2 class="mb-5">| Détails du cinéma @Html.DisplayFor(model => model.Nom)</h2>
 
 <fieldset class="fieldset-style p-3">
     <dl class="row justify-content-around px-4">
@@ -52,14 +52,14 @@
 </div>
 <div class="text-center mt-3">
     <a class="btn btn-primary" asp-controller="Seance" asp-action="FindFilmsCinema" asp-route-id="@Model.Id">
-        Films de ce cinéma </a>
+        Voir les films disponibles </a>
 </div>
 <div class="text-center mt-3">
     <a class="btn btn-primary" asp-controller="Salle" asp-action="FindSallesCinema" asp-route-id="@Model.Id">
-        Salles de ce cinéma </a>
+        Voir les salles du cinéma </a>
 </div>
 <div class="mt-5">
     <a class="text-decoration-none" asp-action="Index"><i class="bi bi-arrow-left-circle-fill"></i> Retour à la
-        la page précédente</a>
+        page précédente</a>
 
 </div>

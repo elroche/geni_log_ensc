@@ -10,7 +10,7 @@
         <fieldset class="fieldset-style p-3">
             <div class="form-group text-center">
                 <p class="px-2">Je souhaite voir les cinémas de : </p>
-                <select class="px-5 py-1" name="ville">
+                <select class="form-select px-5 py-1" name="ville">
                     @foreach (var ville in (IEnumerable<Cinema>)ViewData["villes"])
                     {
                         <option value="@ville.Ville">@ville.Ville</option>

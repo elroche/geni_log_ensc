@@ -23,7 +23,7 @@ public class Seance
     [Required(ErrorMessage = "Veuillez entrer une date et un horaire valide.")]
     public DateTime Date { get; set; }
 
-    [Display(Name = "Nombre de place achetées")]
+    [Display(Name = "Nombre de places achetées")]
     public int NbPlaceAchete { get; set; } = 0;
 
 

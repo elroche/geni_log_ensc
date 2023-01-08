@@ -70,7 +70,7 @@ public class FilmApiController : ControllerBase
         return NoContent();
     }
 
-    // Permet de vérifier l'existaence du film associé à l'identifiant id
+    // Permet de vérifier l'existence du film associé à l'identifiant id
     private bool FilmExist(int id)
     {
         return _context.Films.Any(f => f.Id == id);
@@ -81,7 +81,6 @@ public class FilmApiController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteFilm(int id)
     {
-        //TODO : Vérifier supression en cascade?
         var film = await _context.Films.FindAsync(id);
         if (film == null)
             return NotFound();
